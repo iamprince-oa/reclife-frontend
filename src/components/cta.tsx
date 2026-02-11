@@ -5,10 +5,9 @@ function CTA() {
     <>
       {/* CTA Section */}
       <section className="info-card cta-card">
-        <h2>Get in Touch</h2>
+        <h2>Ready to Get Started?</h2>
         <p>
-          Have a project in mind or want to reach out for a consultation? We’d
-          love to hear from you.
+          "Contact us today to learn how we can support you or your loved one.
         </p>
         <a href="/contact" className="cta-btn">
           Contact Us

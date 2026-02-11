@@ -1,5 +1,6 @@
 import { useEffect, useState, lazy, Suspense } from "react";
-import logo from "../assets/logo.jpeg";
+import slide1 from "../assets/interior1.jpeg";
+import slide2 from "../assets/interior2.jpeg";
 import "../styles/home.css";
 import "../styles/loading.css";
 import { Helmet } from "react-helmet"; // safer for React 19
@@ -65,18 +66,111 @@ function Home() {
       </Helmet>
 
       {/* Header */}
-      <header className="header-hero">
-        <div className="logo-bar">
-          <img
-            src={logo}
-            alt="RecLife Logo"
-            className="logo-small"
-            loading="lazy"
-          />
+      <header className="hero-split">
+        <div className="hero-container">
+          {/* IMAGE CARD 1 */}
+          <div className="hero-media">
+            <div
+              id="carousel-1"
+              className="carousel slide carousel-fade"
+              data-bs-ride="carousel"
+            >
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <img className="w-100" src={slide1} alt="Programs support" />
+                  <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                    <div className="p-3 carousel-caption-content">
+                      <h5 className="text-white text-uppercase mb-3">
+                        Empowering Unique Abilities
+                      </h5>
+                      <h3 className="display-2 text-white mb-4">
+                        Discover programs fostering growth, connection,
+                        independence.
+                      </h3>
+                      <a
+                        href="#contact"
+                        className="btn btn-secondary py-md-3 px-md-5"
+                      >
+                        Contact Us
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/*
+              <button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#carousel-1"
+                data-bs-slide="prev"
+              >
+                <span className="carousel-control-prev-icon" />
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#carousel-1"
+                data-bs-slide="next"
+              >
+                <span className="carousel-control-next-icon" />
+                <span className="visually-hidden">Next</span>
+              </button>
+              */}
+            </div>
+          </div>
+
+          {/* IMAGE CARD 2 */}
+          <div className="hero-media">
+            <div
+              id="carousel-2"
+              className="carousel slide carousel-fade"
+              data-bs-ride="carousel"
+            >
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <img className="w-100" src={slide2} alt="Holistic care" />
+                  <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                    <div className="p-3 carousel-caption-content">
+                      <h5 className="text-white text-uppercase mb-3">
+                        Holistic Care, Proven Results
+                      </h5>
+                      <h1 className="display-2 text-white mb-4">
+                        Physical, emotional, and social well-being prioritized.
+                      </h1>
+                      <a
+                        href="#contact"
+                        className="btn btn-secondary py-md-3 px-md-5"
+                      >
+                        Contact Us
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/*<button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#carousel-2"
+                data-bs-slide="prev"
+              >
+                <span className="carousel-control-prev-icon" />
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#carousel-2"
+                data-bs-slide="next"
+              >
+                <span className="carousel-control-next-icon" />
+                <span className="visually-hidden">Next</span>
+              </button>
+              */}
+            </div>
+          </div>
         </div>
-        <section className="hero-clean">
-          <h1>{data.welcome}</h1>
-        </section>
       </header>
 
       {/* Main Content */}

@@ -1,4 +1,3 @@
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function ThankYou() {
@@ -12,7 +11,11 @@ function ThankYou() {
       <div className="thankyou-container error">
         <h2>Oops! Something went wrong.</h2>
         <p className="error-message">No recent submission found.</p>
-        <button className="back-link" onClick={() => navigate("/contact")}>
+        <button
+          type="button"
+          className="back-link"
+          onClick={() => navigate("/contact")}
+        >
           Back to Contact Form
         </button>
       </div>
@@ -32,7 +35,7 @@ function ThankYou() {
       <p className="detail">
         <b>Message : </b> {submission.message}
       </p>
-      <button className="back-link" onClick={() => navigate("/")}>
+      <button type="button" className="back-link" onClick={() => navigate("/")}>
         Return Home
       </button>
     </div>

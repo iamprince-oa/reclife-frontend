@@ -1,4 +1,5 @@
-import logo from "./logo.jpeg";
+//import logo from "./logo.jpeg";
+import logo from "./logo-cropped.jpeg";
 import interior1 from "./interior1.jpeg";
 import interior2 from "./interior2.jpeg";
 import meal from "./meal.jpeg";

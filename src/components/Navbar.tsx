@@ -1,141 +1,136 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../assets/logo-cropped.jpeg";
 import "../styles/navbar.css";
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem("darkMode") === "true";
-  });
-  const location = useLocation();
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Contact", path: "/contact" },
+  { name: "Testimonials", path: "/testimonials" },
+];
 
-  // DARK MODE
+function Navbar() {
+  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(
+    () => localStorage.getItem("darkMode") === "true",
+  );
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const isActive = (path: string) =>
+    path === "/"
+      ? location.pathname === "/"
+      : location.pathname.startsWith(path);
+
+  // Scroll effect
   useEffect(() => {
-    if (isDark) document.body.classList.add("dark-mode");
-    else document.body.classList.remove("dark-mode");
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Dark mode toggle
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", isDark);
+    localStorage.setItem("darkMode", String(isDark));
   }, [isDark]);
 
-  const toggleDarkMode = () => {
-    const newDark = !isDark;
-    setIsDark(newDark);
-    localStorage.setItem("darkMode", newDark);
-    document.body.classList.toggle("dark-mode", newDark);
-  };
-
-  // AUTO-CLOSE MOBILE MENU ON RESIZE
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768 && isOpen) {
-        setIsOpen(false); // Close burger when entering desktop
-      }
-    };
+    document.body.classList.toggle("mobile-menu-open", menuOpen);
+  }, [menuOpen]);
 
+  // Close menu on window resize
+  useEffect(() => {
+    const handleResize = () => window.innerWidth > 768 && setMenuOpen(false);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isOpen]);
+  }, []);
 
-  const isActive = (path) => location.pathname === path;
+  // Close menu on Escape
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) =>
+      e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
         {/* Logo */}
-        <div className="logo-container">
-          <Link to="/" className="logo-text">
-            RecLife
-            <span className="logo-subtitle">Development & Construction</span>
-          </Link>
-        </div>
+        <Link
+          to="/"
+          className="logo-wrapper"
+          onClick={() => setMenuOpen(false)}
+        >
+          <img src={logo} alt="RecLife logo" className="logo-img" />
+          RecLife
+        </Link>
 
-        {/* Desktop Links + Toggle */}
+        {/* Desktop links + toggle */}
         <div className="nav-right">
           <ul className="nav-links">
-            <li>
-              <Link to="/" className={isActive("/") ? "active" : ""}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" className={isActive("/about") ? "active" : ""}>
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services"
-                className={isActive("/services") ? "active" : ""}
-              >
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                className={isActive("/contact") ? "active" : ""}
-              >
-                Contact
-              </Link>
-            </li>
+            {navLinks.map((link) => (
+              <li key={link.path}>
+                <Link
+                  to={link.path}
+                  className={isActive(link.path) ? "active" : ""}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
           </ul>
 
           <button
-            onClick={toggleDarkMode}
-            className="dark-toggle"
-            aria-label="Toggle dark mode"
+            type="button"
+            className={`dark-toggle ${isDark ? "active" : ""}`}
+            onClick={() => setIsDark((prev) => !prev)}
+            aria-label="Toggle theme"
           >
-            {isDark ? (
-              <i className="fas fa-sun"></i>
-            ) : (
-              <i className="fas fa-moon"></i>
-            )}
+            <i className={`fas ${isDark ? "fa-sun" : "fa-moon"}`}></i>
           </button>
         </div>
 
-        {/* Mobile Burger */}
+        {/* Mobile burger */}
         <button
-          className={`burger ${isOpen ? "open" : ""}`}
-          onClick={() => {
-            setIsOpen(!isOpen);
-            document.body.classList.toggle("mobile-menu-open", !isOpen);
-          }}
-          aria-label="Toggle menu"
+          type="button"
+          className={`burger ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen((prev) => !prev)}
+          aria-controls="mobile-nav"
+          aria-label="Toggle navigation"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span className="bar"></span>
+          <span className="bar"></span>
+          <span className="bar"></span>
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
+      {/* Mobile menu */}
+      <div id="mobile-nav" className={`mobile-menu ${menuOpen ? "open" : ""}`}>
         <ul className="mobile-links">
+          {navLinks.map((link) => (
+            <li key={link.path}>
+              <Link
+                to={link.path}
+                onClick={() => setMenuOpen(false)}
+                className={isActive(link.path) ? "active" : ""}
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
           <li>
-            <Link to="/" onClick={() => setIsOpen(false)}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" onClick={() => setIsOpen(false)}>
-              About
-            </Link>
-          </li>
-          <li>
-            <Link to="/services" onClick={() => setIsOpen(false)}>
-              Services
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              Contact
-            </Link>
-          </li>
-          <li>
-            <button onClick={toggleDarkMode} className="mobile-dark-toggle">
-              {isDark ? (
-                <i className="fas fa-sun"></i>
-              ) : (
-                <i className="fas fa-moon"></i>
-              )}
+            <button
+              type="button"
+              className={`dark-toggle ${isDark ? "active" : ""}`}
+              onClick={() => setIsDark((prev) => !prev)}
+              aria-label="Toggle theme"
+            >
+              <i className={`fas ${isDark ? "fa-sun" : "fa-moon"}`}></i>
             </button>
           </li>
         </ul>

@@ -1,0 +1,387 @@
+/* ================= ROOT ================= */
+:root {
+  --primary-color: #0d6efd;
+  --text-color: #1f2a44;
+  --light-bg: #f9fafb;
+  --dark-bg: #1f2937;
+  --dark-text-color: #f3f4f6;
+  --container-max: 1200px;
+  --radius-xl: 28px;
+  --radius-md: 12px;
+}
+
+/* ================= GLOBAL ================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-color);
+  background: #fff;
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ================= LOADING ================= */
+.loading-wrapper {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  font-weight: 500;
+}
+
+/* ================= SPLIT HERO ================= */
+
+.hero-split {
+  margin-top: 72px;
+  padding: 0 1.25rem;
+}
+
+.hero-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+/* ---------- TEXT PANEL ---------- */
+.hero-text {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 3vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.hero-text h1 {
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+
+.hero-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+  color: #4b5563;
+}
+
+.hero-btn {
+  align-self: flex-start;
+  background: var(--primary-color);
+  color: #fff;
+  padding: 0.85rem 2.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- IMAGE PANEL ---------- */
+.hero-media {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+
+/* make carousel fill card */
+.hero-media .carousel,
+.hero-media .carousel-inner,
+.hero-media .carousel-item {
+  height: 100%;
+  min-height: 420px;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s ease;
+}
+
+.hero-media .carousel-item.active img {
+  transform: scale(1.05);
+}
+
+/* navigation buttons inside rounded image */
+.hero-media .carousel-control-prev,
+.hero-media .carousel-control-next {
+  width: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hero-media:hover .carousel-control-prev,
+.hero-media:hover .carousel-control-next {
+  opacity: 1;
+}
+
+.hero-media .carousel-control-prev {
+  left: 18px;
+}
+.hero-media .carousel-control-next {
+  right: 18px;
+}
+
+/* ================= CONTENT ================= */
+
+.home-content {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 5rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.info-card {
+  background: var(--light-bg);
+  padding: 2.5rem 2rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.info-card h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.info-card p {
+  line-height: 1.75;
+  font-size: 1.05rem;
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark-mode {
+  background: var(--dark-bg);
+  color: var(--dark-text-color);
+}
+
+body.dark-mode .info-card {
+  background: #374151;
+}
+
+/* ================= MOBILE ================= */
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  /* hero spacing from navbar */
+  .header-hero {
+    margin-top: 64px;
+    padding: 0 0.6rem;
+  }
+
+  /* reduce hero height for phones */
+  .hero-wrapper {
+    height: clamp(340px, 62vh, 520px);
+    border-radius: 18px;
+  }
+
+  /* reduce image zoom effect (was too aggressive on mobile) */
+  .carousel-item.active img {
+    transform: scale(1.03);
+  }
+
+  /* caption position */
+  .carousel-caption {
+    top: 55%;
+    transform: translateY(-50%);
+    padding: 0 0.6rem;
+  }
+
+  .carousel-caption-content {
+    max-width: 100%;
+  }
+
+  /* typography scaling */
+  .carousel-caption h5 {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.6rem;
+  }
+
+  .carousel-caption h1,
+  .carousel-caption h3 {
+    font-size: clamp(1.35rem, 5vw, 1.9rem);
+    line-height: 1.25;
+  }
+
+  /* button */
+  .carousel-caption .btn {
+    margin-top: 0.9rem;
+    padding: 0.65rem 1.6rem;
+    font-size: 0.9rem;
+  }
+
+  /* move controls lower so they don't cover text */
+  .carousel-control-prev,
+  .carousel-control-next {
+    top: auto;
+    bottom: 14px;
+    width: auto;
+    transform: none;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 34px;
+    height: 34px;
+    background-size: 70%;
+  }
+}
+
+/* SMALL PHONES */
+@media (max-width: 420px) {
+  .hero-wrapper {
+    height: 320px;
+    border-radius: 16px;
+  }
+
+  .carousel-caption {
+    top: 58%;
+  }
+
+  .carousel-caption h1,
+  .carousel-caption h3 {
+    font-size: 1.25rem;
+  }
+
+  .carousel-caption .btn {
+    padding: 0.55rem 1.3rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ================= MOBILE HERO FIX ================= */
+
+@media (max-width: 768px) {
+  /* make hero stack vertically */
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* image panel */
+  .hero-media {
+    width: 100%;
+    height: 240px; /* adjust as needed */
+    min-height: 220px;
+  }
+
+  /* remove transform zoom effect */
+  .hero-media .carousel-item.active img {
+    transform: none;
+  }
+
+  /* keep rounded corners */
+  .hero-media {
+    border-radius: var(--radius-xl);
+  }
+
+  /* text panel stays full width */
+  .hero-text {
+    width: 100%;
+  }
+
+  /* optional: reduce padding inside text card */
+  .hero-text {
+    padding: 1.8rem 1.5rem;
+  }
+
+  /* buttons smaller */
+  .hero-btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 0.9rem;
+  }
+
+  /* carousel controls smaller and inside image */
+  .hero-media .carousel-control-prev,
+  .hero-media .carousel-control-next {
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .hero-media .carousel-control-prev-icon,
+  .hero-media .carousel-control-next-icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* very small phones */
+@media (max-width: 420px) {
+  .hero-media {
+    height: 200px;
+  }
+
+  .hero-text h1 {
+    font-size: 1.35rem;
+  }
+
+  .hero-text p {
+    font-size: 0.95rem;
+  }
+}
