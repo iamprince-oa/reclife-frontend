@@ -79,7 +79,7 @@ function Home() {
                 <div className="carousel-item active">
                   <img className="w-100" src={slide1} alt="Programs support" />
                   <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                    <div className="p-3 carousel-caption-content">
+                    <div className="carousel-caption-content">
                       <h5 className="text-white text-uppercase mb-3">
                         Empowering Unique Abilities
                       </h5>
@@ -97,26 +97,6 @@ function Home() {
                   </div>
                 </div>
               </div>
-              {/*
-              <button
-                className="carousel-control-prev"
-                type="button"
-                data-bs-target="#carousel-1"
-                data-bs-slide="prev"
-              >
-                <span className="carousel-control-prev-icon" />
-                <span className="visually-hidden">Previous</span>
-              </button>
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target="#carousel-1"
-                data-bs-slide="next"
-              >
-                <span className="carousel-control-next-icon" />
-                <span className="visually-hidden">Next</span>
-              </button>
-              */}
             </div>
           </div>
 
@@ -178,6 +158,104 @@ function Home() {
         <section className="info-card" aria-labelledby="mission-title">
           <h2 id="mission-title">Our Mission</h2>
           <p>{data.mission}</p>
+        </section>
+        {/* Image collage slideshow – replace srcs with your real images */}
+        <section className="gallery-section" aria-labelledby="gallery-title">
+          <h2 id="gallery-title" className="text-center mb-5">
+            Our Impact in Action
+          </h2>
+
+          <div
+            id="galleryCarousel"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner">
+              {/* Slide 1 – collage grid */}
+              <div className="carousel-item active">
+                <div className="collage-grid">
+                  <img
+                    src="/assets/program1.jpg"
+                    alt="Person in activity A"
+                    className="collage-img tall"
+                  />
+                  <img
+                    src="/assets/group2.jpg"
+                    alt="Group session"
+                    className="collage-img wide"
+                  />
+                  <img
+                    src="/assets/interior3.jpeg"
+                    alt="Support environment"
+                    className="collage-img"
+                  />
+                  <img
+                    src="/assets/activity4.jpg"
+                    alt="Independence training"
+                    className="collage-img"
+                  />
+                  <img
+                    src="/assets/smile5.jpg"
+                    alt="Happy participant"
+                    className="collage-img tall"
+                  />
+                </div>
+              </div>
+
+              {/* Slide 2 – another collage */}
+              <div className="carousel-item">
+                <div className="collage-grid">
+                  <img
+                    src="/assets/therapy6.jpg"
+                    alt="Therapy moment"
+                    className="collage-img"
+                  />
+                  <img
+                    src="/assets/community7.jpeg"
+                    alt="Community event"
+                    className="collage-img wide tall"
+                  />
+                  <img
+                    src="/assets/learn8.jpg"
+                    alt="Learning activity"
+                    className="collage-img"
+                  />
+                  <img
+                    src="/assets/joy9.jpg"
+                    alt="Joyful connection"
+                    className="collage-img"
+                  />
+                </div>
+              </div>
+
+              {/* Add more carousel-item as needed */}
+            </div>
+
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#galleryCarousel"
+              data-bs-slide="prev"
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#galleryCarousel"
+              data-bs-slide="next"
+            >
+              <span
+                className="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
         </section>
 
         <Suspense fallback={<div>Loading call-to-action...</div>}>

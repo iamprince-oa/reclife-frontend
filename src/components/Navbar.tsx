@@ -67,7 +67,7 @@ function Navbar() {
           onClick={() => setMenuOpen(false)}
         >
           <img src={logo} alt="RecLife logo" className="logo-img" />
-          RecLife
+          <span className="logo-text">RecLife</span>
         </Link>
 
         {/* Desktop links + toggle */}
