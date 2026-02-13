@@ -1,0 +1,318 @@
+/* ================================================
+   CTA Section – Refined 2025 Styling
+   ================================================ */
+
+.cta-section {
+  background: var(--light-bg);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  padding: clamp(3rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+  margin: 5rem auto;
+  max-width: 1200px;
+  overflow: hidden; /* helps with map corners */
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease;
+}
+
+.cta-section:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
+}
+
+.cta-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Top heading – larger & bolder for impact */
+.cta-heading {
+  font-size: clamp(2.5rem, 7vw, 3.8rem);
+  font-weight: 800;
+  color: var(--primary-color);
+  margin: 0 0 4rem;
+  line-height: 1.1;
+  letter-spacing: -0.8px;
+}
+
+/* ── Contact Info Rows (modern left-aligned style) ── */
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.contact-row:hover {
+  transform: translateX(8px);
+}
+
+.contact-icon {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  font-size: 1.8rem;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.contact-row:hover .contact-icon {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon colors – using modern vibrant palette */
+.contact-icon.location {
+  background: #6366f1;
+} /* indigo */
+.contact-icon.email {
+  background: #f43f5e;
+} /* rose */
+.contact-icon.phone {
+  background: #3b82f6;
+} /* blue */
+
+/* Text */
+.contact-details {
+  flex: 1;
+}
+
+.contact-label {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 0.4rem;
+}
+
+.contact-detail,
+.contact-link {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #4b5563;
+  margin: 0;
+}
+
+.contact-link {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.contact-link:hover,
+.contact-link:focus {
+  color: var(--primary-dark, #1e40af);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+}
+
+/* ── Social Section ── */
+.social-section {
+  margin-top: 3rem;
+}
+
+.social-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1.6rem;
+  text-align: center;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: white;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.social-btn:hover,
+.social-btn:focus {
+  transform: translateY(-6px) scale(1.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  outline: none;
+}
+
+/* Social brand colors – unchanged but can be tweaked */
+.whatsapp {
+  background: #25d366;
+}
+.phone {
+  background: #0d6efd;
+}
+.email {
+  background: #ea4335;
+}
+.instagram {
+  background: #e1306c;
+}
+.facebook {
+  background: #1877f2;
+}
+
+/* ── Map Area ── */
+.cta-split-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr; /* contacts bit narrower */
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: stretch;
+  margin-top: 3rem;
+}
+
+.cta-left-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cta-map-wrapper {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1);
+  background: #e5e7eb; /* fallback */
+  position: relative;
+  min-height: 460px; /* better default height */
+}
+
+.cta-map-iframe {
+  border: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Dark Mode Adjustments ── */
+body.dark-mode .cta-section {
+  background: #111827;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  border: 1px solid #374151;
+}
+
+body.dark-mode .cta-heading {
+  color: #93c5fd;
+}
+
+body.dark-mode .contact-label {
+  color: #f1f5f9;
+}
+
+body.dark-mode .contact-detail,
+body.dark-mode .contact-link {
+  color: #cbd5e1;
+}
+
+body.dark-mode .contact-link:hover,
+body.dark-mode .contact-link:focus {
+  color: #60a5fa;
+}
+
+body.dark-mode .social-heading {
+  color: #e2e8f0;
+}
+
+body.dark-mode .social-btn {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .social-btn:hover,
+body.dark-mode .social-btn:focus {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
+}
+
+body.dark-mode .cta-map-wrapper {
+  background: #1f2937;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .cta-split-wrapper {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .cta-map-wrapper {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 3.5rem 1.5rem;
+    margin: 3.5rem 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .cta-heading {
+    font-size: clamp(2.2rem, 7vw, 3rem);
+    margin-bottom: 3rem;
+  }
+
+  .contact-row {
+    gap: 1.2rem;
+  }
+
+  .contact-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.6rem;
+  }
+
+  .contact-label {
+    font-size: 1.25rem;
+  }
+
+  .social-buttons {
+    gap: 1rem;
+  }
+
+  .social-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.45rem;
+  }
+
+  .cta-map-wrapper {
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-row {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+  }
+
+  .contact-icon {
+    margin: 0 auto;
+  }
+}

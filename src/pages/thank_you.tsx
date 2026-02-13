@@ -3,42 +3,72 @@ import { useLocation, useNavigate } from "react-router-dom";
 function ThankYou() {
   const location = useLocation();
   const navigate = useNavigate();
-  const submission = location.state?.submission; // get submission from router state
+  const submission = location.state?.submission;
 
-  // If no submission found (e.g., direct URL access), redirect back
+  /* ---------- Missing state (direct visit) ---------- */
   if (!submission) {
     return (
-      <div className="thankyou-container error">
-        <h2>Oops! Something went wrong.</h2>
-        <p className="error-message">No recent submission found.</p>
-        <button
-          type="button"
-          className="back-link"
-          onClick={() => navigate("/contact")}
-        >
-          Back to Contact Form
-        </button>
-      </div>
+      <main className="thankyou-wrapper">
+        <section className="thankyou-card error" role="alert">
+          <h1>We couldn’t find your submission</h1>
+          <p>
+            It looks like this page was opened directly. Please send your
+            message through the contact form.
+          </p>
+
+          <button
+            type="button"
+            className="primary-btn"
+            onClick={() => navigate("/contact")}
+          >
+            Go to Contact Form
+          </button>
+        </section>
+      </main>
     );
   }
 
+  /* ---------- Success state ---------- */
   return (
-    <div className="thankyou-container success">
-      <div className="check-icon">✔</div>
-      <h2>Thank you for contacting us!</h2>
-      <p>
-        Thank you, <strong>{submission.name}</strong>!<br />
-        <span className="detail">
-          We received your message about <strong>{submission.subject}</strong>.
-        </span>
-      </p>
-      <p className="detail">
-        <b>Message : </b> {submission.message}
-      </p>
-      <button type="button" className="back-link" onClick={() => navigate("/")}>
-        Return Home
-      </button>
-    </div>
+    <main className="thankyou-wrapper">
+      <section className="thankyou-card success">
+        <div className="check-icon" aria-hidden="true">
+          ✓
+        </div>
+
+        <h1>Message received</h1>
+
+        <p className="lead">
+          Thanks <strong>{submission.name}</strong>, your message has been sent
+          successfully.
+        </p>
+
+        <p className="detail">
+          We’ll get back to you shortly regarding{" "}
+          <strong>{submission.subject}</strong>.
+        </p>
+
+        <p className="muted">Our team usually responds within 24 hours.</p>
+
+        <div className="thankyou-actions">
+          <button
+            type="button"
+            className="primary-btn"
+            onClick={() => navigate("/")}
+          >
+            Return Home
+          </button>
+
+          <button
+            type="button"
+            className="secondary-btn"
+            onClick={() => navigate("/services")}
+          >
+            View Our Services
+          </button>
+        </div>
+      </section>
+    </main>
   );
 }
 

@@ -1,8 +1,14 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import slide1 from "../assets/interior1.jpeg";
 import slide2 from "../assets/interior2.jpeg";
+import interior1 from "../assets/interior1.jpeg";
+import interior2 from "../assets/interior2.jpeg";
+import image1 from "../assets/Image2.jpeg";
+import service1 from "../assets/service-1.jpg";
+import service2 from "../assets/service-2.jpg";
 import "../styles/home.css";
 import "../styles/loading.css";
+import "../styles/cta.css";
 import { Helmet } from "react-helmet"; // safer for React 19
 
 const Footer = lazy(() => import("../components/Footer"));
@@ -156,85 +162,48 @@ function Home() {
       {/* Main Content */}
       <main className="home-content">
         <section className="info-card" aria-labelledby="mission-title">
-          <h2 id="mission-title">Our Mission</h2>
-          <p>{data.mission}</p>
-        </section>
-        {/* Image collage slideshow – replace srcs with your real images */}
-        <section className="gallery-section" aria-labelledby="gallery-title">
-          <h2 id="gallery-title" className="text-center mb-5">
-            Our Impact in Action
-          </h2>
-
+          {/* Slideshow of multiple images */}
           <div
-            id="galleryCarousel"
+            id="missionCarousel"
             className="carousel slide"
             data-bs-ride="carousel"
           >
             <div className="carousel-inner">
-              {/* Slide 1 – collage grid */}
+              {/* Slide 1 */}
               <div className="carousel-item active">
-                <div className="collage-grid">
-                  <img
-                    src="/assets/program1.jpg"
-                    alt="Person in activity A"
-                    className="collage-img tall"
-                  />
-                  <img
-                    src="/assets/group2.jpg"
-                    alt="Group session"
-                    className="collage-img wide"
-                  />
-                  <img
-                    src="/assets/interior3.jpeg"
-                    alt="Support environment"
-                    className="collage-img"
-                  />
-                  <img
-                    src="/assets/activity4.jpg"
-                    alt="Independence training"
-                    className="collage-img"
-                  />
-                  <img
-                    src="/assets/smile5.jpg"
-                    alt="Happy participant"
-                    className="collage-img tall"
-                  />
-                </div>
+                <img
+                  src={service1} // Replace with your actual paths
+                  className="d-block w-100 mission-carousel-img"
+                  alt="Group enjoying inclusive outdoor activities together"
+                />
               </div>
 
-              {/* Slide 2 – another collage */}
+              {/* Slide 2 */}
               <div className="carousel-item">
-                <div className="collage-grid">
-                  <img
-                    src="/assets/therapy6.jpg"
-                    alt="Therapy moment"
-                    className="collage-img"
-                  />
-                  <img
-                    src="/assets/community7.jpeg"
-                    alt="Community event"
-                    className="collage-img wide tall"
-                  />
-                  <img
-                    src="/assets/learn8.jpg"
-                    alt="Learning activity"
-                    className="collage-img"
-                  />
-                  <img
-                    src="/assets/joy9.jpg"
-                    alt="Joyful connection"
-                    className="collage-img"
-                  />
-                </div>
+                <img
+                  src={service2}
+                  className="d-block w-100 mission-carousel-img"
+                  alt="Participants in adaptive sports smiling and engaging"
+                />
               </div>
 
-              {/* Add more carousel-item as needed */}
+              {/* Slide 3 */}
+              <div className="carousel-item">
+                <img
+                  src={service2}
+                  className="d-block w-100 mission-carousel-img"
+                  alt="Community members supporting each other in recreational programs"
+                />
+              </div>
+
+              {/* Add more carousel-item as needed, e.g. 4–6 total */}
             </div>
 
+            {/* Optional: Small prev/next controls – subtle for this section */}
             <button
               className="carousel-control-prev"
               type="button"
-              data-bs-target="#galleryCarousel"
+              data-bs-target="#missionCarousel"
               data-bs-slide="prev"
             >
               <span
@@ -246,7 +215,7 @@ function Home() {
             <button
               className="carousel-control-next"
               type="button"
-              data-bs-target="#galleryCarousel"
+              data-bs-target="#missionCarousel"
               data-bs-slide="next"
             >
               <span
@@ -255,6 +224,81 @@ function Home() {
               ></span>
               <span className="visually-hidden">Next</span>
             </button>
+
+            {/* Optional: Indicators (dots) at bottom */}
+            <div className="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#missionCarousel"
+                data-bs-slide-to="0"
+                className="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#missionCarousel"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#missionCarousel"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+              {/* Add more buttons for additional slides */}
+            </div>
+          </div>
+
+          {/* Text content below the slideshow */}
+          <div className="mission-text">
+            <h2 id="mission-title">Our Mission</h2>
+            <p>{data.mission}</p>
+          </div>
+        </section>
+
+        {/* Image collage – static grid instead of slideshow */}
+        <section className="gallery-section" aria-labelledby="gallery-title">
+          <div className="gallery-header text-center">
+            <h2 id="gallery-title">Our Impact in Action</h2>
+            <p className="gallery-subtitle">
+              Meaningful moments created every day through inclusive recreation
+            </p>
+          </div>
+
+          <div className="collage-grid">
+            <img
+              src={image1}
+              alt="Person engaged in meaningful recreational activity"
+              className="collage-img tall"
+              loading="lazy"
+            />
+            <img
+              src={interior1}
+              alt="Group participating in adaptive recreation session"
+              className="collage-img wide"
+              loading="lazy"
+            />
+            <img
+              src={service1}
+              alt="Participant enjoying supported inclusive activity"
+              className="collage-img"
+              loading="lazy"
+            />
+            <img
+              src={interior2}
+              alt="Joyful community connection moment"
+              className="collage-img"
+              loading="lazy"
+            />
+          </div>
+
+          {/* ← Moved here – now sits below the grid */}
+          <div className="text-center mt-10 md:mt-12 lg:mt-16">
+            <a href="/services" className="btn-explore">
+              Explore Programs
+            </a>
           </div>
         </section>
 

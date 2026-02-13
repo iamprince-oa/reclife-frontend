@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
 import "../styles/contact.css";
 
-// Define the shape of the form
 interface ContactForm {
   name: string;
   email: string;
@@ -13,7 +12,6 @@ interface ContactForm {
   message: string;
 }
 
-// Define the API response
 interface ContactResponse {
   submission: {
     name: string;
@@ -36,15 +34,17 @@ function Contact() {
     message: "",
   });
 
-  const [response, setResponse] = useState<string>("");
+  const [response, setResponse] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
-  // Auto-clear response after 5 seconds
   useEffect(() => {
     if (response) {
-      const timer = setTimeout(() => setResponse(""), 5000);
+      const timer = setTimeout(() => setResponse(null), 6000);
       return () => clearTimeout(timer);
     }
   }, [response]);
@@ -58,7 +58,7 @@ function Contact() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setResponse("");
+    setResponse(null);
 
     try {
       const res = await fetch("http://127.0.0.1:8000/api/contact/", {
@@ -70,14 +70,22 @@ function Contact() {
       const data: ContactResponse = await res.json();
 
       if (res.ok) {
-        // Redirect to Thank You page with submission data
         navigate("/thank-you", { state: { submission: data.submission } });
       } else {
-        setResponse(data.message || data.warning || "Something went wrong.");
+        setResponse({
+          text:
+            data.message ||
+            data.warning ||
+            "Something went wrong. Please try again.",
+          type: "error",
+        });
       }
     } catch (err) {
       console.error(err);
-      setResponse("Network error. Please try again.");
+      setResponse({
+        text: "Network error. Please check your connection and try again.",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -85,74 +93,97 @@ function Contact() {
 
   return (
     <>
-      {/* SEO */}
       <Helmet>
-        <title>Contact Us – RecLife</title>
+        <title>Contact RecLife – We're Here to Help</title>
         <meta
           name="description"
-          content="Reach out to RecLife for support, consultations, or inquiries about our services."
+          content="Get in touch with RecLife for support, inquiries about programs, or to discuss how we can assist you or your loved one."
         />
         <meta
           name="keywords"
-          content="RecLife, Contact, Support, Consultation"
+          content="RecLife, contact, support, consultation, community programs"
         />
-        <meta name="author" content="RecLife" />
       </Helmet>
 
       <main className="contact-page">
         <div className="contact-container">
-          <h1 className="contact-title">Get in Touch</h1>
-          <p className="contact-subtitle">
-            Have a project in mind or want to reach out for a consultation? We'd
-            love to hear from you.
-          </p>
+          <div className="contact-header">
+            <h1>Get in Touch</h1>
+            <p className="contact-subtitle">
+              We're here to listen and help. Reach out with any questions about
+              our programs, to request support, or just to say hello.
+            </p>
+          </div>
 
-          <form onSubmit={handleSubmit} className="contact-form" noValidate>
+          <form
+            onSubmit={handleSubmit}
+            className="contact-form"
+            noValidate
+            aria-label="Contact form"
+          >
             {(["name", "email", "subject"] as const).map((field) => (
-              <div className="form-group" key={field}>
-                <label htmlFor={field}>
-                  {field.charAt(0).toUpperCase() + field.slice(1)}
-                </label>
+              <div className="form-group floating-label" key={field}>
                 <input
                   id={field}
                   type={field === "email" ? "email" : "text"}
                   name={field}
-                  placeholder={
-                    field === "email" ? "john@example.com" : `Enter ${field}`
-                  }
                   value={formData[field]}
                   onChange={handleChange}
                   required
                   disabled={loading}
+                  placeholder=" "
+                  aria-required="true"
                 />
+                <label htmlFor={field}>
+                  {field === "email"
+                    ? "Email Address"
+                    : field.charAt(0).toUpperCase() + field.slice(1)}
+                </label>
               </div>
             ))}
 
-            <div className="form-group">
-              <label htmlFor="message">Message</label>
+            <div className="form-group floating-label">
               <textarea
                 id="message"
                 name="message"
-                placeholder="Tell us about your project..."
                 value={formData.message}
                 onChange={handleChange}
-                rows={5}
                 required
                 disabled={loading}
+                rows={6}
+                placeholder=" "
+                aria-required="true"
               />
+              <label htmlFor="message">Your Message</label>
             </div>
 
-            <button type="submit" className="submit-btn" disabled={loading}>
-              {loading ? "Sending..." : "Send Message"}
+            <button
+              type="submit"
+              className={`submit-btn ${loading ? "loading" : ""}`}
+              disabled={loading}
+              aria-busy={loading ? "true" : "false"}
+            >
+              <span aria-live="polite">
+                {loading ? (
+                  <>
+                    <span className="spinner-small" aria-hidden="true"></span>
+                    Sending...
+                  </>
+                ) : (
+                  "Send Message"
+                )}
+              </span>
             </button>
           </form>
 
           {response && (
-            <p
-              className={`response-msg ${response.includes("Thanks") ? "success" : "error"}`}
+            <div
+              role="alert"
+              aria-live="assertive"
+              className={`form-response ${response.type}`}
             >
-              {response}
-            </p>
+              {response.text}
+            </div>
           )}
         </div>
       </main>

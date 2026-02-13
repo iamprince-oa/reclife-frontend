@@ -1,13 +1,29 @@
 /* ================= ROOT ================= */
 :root {
-  --primary-color: #0d6efd;
-  --text-color: #1f2a44;
-  --light-bg: #f9fafb;
-  --dark-bg: #1f2937;
-  --dark-text-color: #f3f4f6;
-  --container-max: 1200px;
-  --radius-xl: 28px;
-  --radius-md: 12px;
+  --bg-section: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --primary: #0d6efd;
+  --primary-dark: #0b5ed7;
+  --primary-glow: rgba(13, 110, 253, 0.3);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.18);
+  --radius-md: 0.75rem;
+  --radius-xl: 1.5rem;
+}
+
+body.dark-mode {
+  --bg-section: #0f172a; /* or #111827, #1e293b etc */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --primary: #3b82f6; /* tailwind blue-500 – very visible */
+  --primary-dark: #2563eb; /* blue-600 */
+  --primary-glow: rgba(59, 130, 246, 0.35);
+  --primary-glow-dark: rgba(59, 130, 246, 0.55);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-md-dark: 0 6px 20px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-lg-dark: 0 16px 40px rgba(0, 0, 0, 0.7);
 }
 
 /* ================= GLOBAL ================= */
@@ -183,15 +199,17 @@ a {
   gap: 4rem;
 }
 
+/* Mission section with image on top */
+/* Mission section with improved image handling */
 .info-card {
   background: var(--light-bg);
-  padding: 2.5rem 2rem;
   border-radius: var(--radius-md);
-  text-align: center;
+  overflow: hidden;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
+  text-align: center;
 }
 
 .info-card:hover {
@@ -199,27 +217,80 @@ a {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
-.info-card h2 {
+/* Image wrapper – uses aspect-ratio for natural proportions */
+.mission-image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Change to match your image! e.g. 4/3, 3/2, 21/9 for wider */
+  overflow: hidden;
+  background: #e5e7eb; /* fallback color while loading */
+}
+
+.mission-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* still fills nicely, but now container matches image ratio */
+  object-position: center;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.info-card:hover .mission-image {
+  transform: scale(1.03); /* subtle zoom — feels premium, not stretched */
+}
+
+/* Text below */
+.mission-text {
+  padding: 2.5rem 2rem 3rem;
+}
+
+.mission-text h2 {
   color: var(--primary-color);
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
 }
 
-.info-card p {
-  line-height: 1.75;
+.mission-text p {
+  line-height: 1.8;
   font-size: 1.05rem;
+  max-width: 720px;
+  margin: 0 auto;
+  color: #4b5563;
 }
 
-/* ================= DARK MODE ================= */
-
-body.dark-mode {
-  background: var(--dark-bg);
-  color: var(--dark-text-color);
-}
+/* Dark mode*/
 
 body.dark-mode .info-card {
   background: #374151;
 }
+body.dark-mode .mission-text p {
+  color: #d1d5db;
+}
+body.dark-mode .mission-image-wrapper {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mission-image-wrapper {
+    aspect-ratio: 4 / 3; /* switch to a more square ratio for mobile */
+    height: 220px; /* smaller on mobile */
+  }
+
+  .mission-text {
+    padding: 2rem 1.5rem 2.5rem;
+  }
+
+  .mission-text h2 {
+    font-size: 1.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mission-image-wrapper {
+    aspect-ratio: 4 / 3;
+    height: 180px;
+  }
+}
 /* ================= MOBILE ================= */
 
 /* ================= MOBILE ================= */
@@ -386,18 +457,111 @@ body.dark-mode .info-card {
   }
 }
 
+/* Gallery section – static collage grid */
+/* ================= GALLERY SECTION ================= */
+
 .gallery-section {
-  padding: 4rem 1rem;
-  background: var(--light-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 1.5rem;
+  background: var(--bg-section, #ffffff);
   border-radius: var(--radius-xl);
+  color: var(--text-primary, #111827);
 }
 
+body.dark-mode .gallery-section {
+  background: var(
+    --bg-section,
+    #0f172a
+  ); /* slate-900 or your preferred dark bg */
+  color: var(--text-primary, #f1f5f9);
+}
+
+/* ── Header ────────────────────────────────────── */
+.gallery-header {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.gallery-header h2 {
+  margin: 0 auto;
+  max-width: 720px;
+  color: var(--text-heading, inherit);
+}
+
+.gallery-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary, #6b7280); /* gray-500 light / gray-400 dark */
+  max-width: 640px;
+  margin: 0 auto 1.8rem;
+  line-height: 1.6;
+}
+
+body.dark-mode .gallery-subtitle {
+  color: var(--text-secondary, #94a3b8); /* slate-400 */
+}
+
+/* ── Explore Button ────────────────────────────── */
+.btn-explore {
+  display: inline-block;
+  background: var(--primary, #0d6efd);
+  color: white !important;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 999px;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  border: 2px solid var(--primary, #0d6efd);
+  box-shadow:
+    0 6px 16px var(--primary-glow, rgba(13, 110, 253, 0.3)),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.28s ease;
+  text-decoration: none;
+  margin-top: 1.5rem;
+  min-width: 220px;
+}
+
+.btn-explore:hover,
+.btn-explore:focus-visible {
+  background: var(--primary-dark, #0b5ed7);
+  border-color: var(--primary-dark, #0b5ed7);
+  transform: translateY(-3px);
+  box-shadow:
+    0 12px 28px var(--primary-glow, rgba(13, 110, 253, 0.45)),
+    0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark mode button variant */
+body.dark-mode .btn-explore {
+  background: var(--primary, #3b82f6); /* brighter blue good on dark bg */
+  border-color: var(--primary, #3b82f6);
+  box-shadow:
+    0 6px 16px var(--primary-glow-dark, rgba(59, 130, 246, 0.5)),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .btn-explore:hover,
+body.dark-mode .btn-explore:focus-visible {
+  background: var(--primary-dark, #2563eb);
+  border-color: var(--primary-dark, #2563eb);
+  box-shadow:
+    0 12px 28px var(--primary-glow-dark, rgba(59, 130, 246, 0.7)),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Grid & Images ─────────────────────────────── */
 .collage-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  grid-auto-rows: 260px; /* base height */
-  gap: 1.2rem;
-  padding: 0 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  max-width: 1100px;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
 }
 
 .collage-img {
@@ -405,18 +569,25 @@ body.dark-mode .info-card {
   height: 100%;
   object-fit: cover;
   border-radius: var(--radius-md);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transition:
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+  box-shadow: var(--shadow-md, 0 6px 20px rgba(0, 0, 0, 0.12));
+  transition: all 0.4s ease;
+  background: var(--bg-image-fallback, #e5e7eb); /* light gray placeholder */
+}
+
+body.dark-mode .collage-img {
+  box-shadow: var(--shadow-md-dark, 0 6px 20px rgba(0, 0, 0, 0.45));
+  background: var(--bg-image-fallback, #1e293b); /* slate-800 */
 }
 
 .collage-img:hover {
   transform: scale(1.04);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-lg, 0 12px 32px rgba(0, 0, 0, 0.18));
 }
 
-/* Uneven collage look – span some items */
+body.dark-mode .collage-img:hover {
+  box-shadow: var(--shadow-lg-dark, 0 12px 32px rgba(0, 0, 0, 0.6));
+}
+
 .collage-img.tall {
   grid-row: span 2;
 }
@@ -424,11 +595,32 @@ body.dark-mode .info-card {
   grid-column: span 2;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* ── Mobile ────────────────────────────────────── */
+@media (min-width: 768px) {
+  .gallery-header {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
   .collage-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    grid-auto-rows: 180px;
-    gap: 0.9rem;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 260px;
+    gap: 1rem;
+  }
+
+  .collage-img.tall,
+  .collage-img.wide {
+    grid-row: span 1;
+    grid-column: span 1;
+  }
+
+  .gallery-section {
+    padding: 4rem 1rem;
+  }
+
+  .btn-explore {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
   }
 }
