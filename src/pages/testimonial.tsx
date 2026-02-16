@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom"; // <-- Added
 import Footer from "../components/Footer";
 import "../styles/testimonial.css";
 import "../styles/loading.css";
@@ -23,6 +24,7 @@ interface TestimonialPostResponse {
 }
 
 function Testimonials() {
+  const navigate = useNavigate(); // <-- Added
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -81,6 +83,11 @@ function Testimonials() {
           type: "success",
         });
         setFormData({ name: "", email: "", message: "" });
+
+        // Redirect to ThankYou page with the testimonial data
+        navigate("/thank-you", {
+          state: { submission: data.testimonial, type: "testimonial" },
+        });
       } else {
         setResponse({
           text: data.warning || "Something went wrong. Please try again.",

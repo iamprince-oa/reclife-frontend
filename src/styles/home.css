@@ -73,6 +73,86 @@ a {
   font-weight: 500;
 }
 
+/* ================= HERO IMAGE CARDS ================= */
+
+.hero-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  min-height: 460px;
+  background: #000;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+/* subtle zoom */
+.hero-card:hover .hero-img {
+  transform: scale(1.06);
+}
+
+/* dark readable overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65) 10%,
+    rgba(0, 0, 0, 0.45) 40%,
+    rgba(0, 0, 0, 0.15) 70%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(1.6rem, 3vw, 3rem);
+}
+
+/* content container */
+.hero-content {
+  max-width: 560px;
+  color: white;
+}
+
+/* small label */
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-bottom: 0.7rem;
+}
+
+/* main headline */
+.hero-title {
+  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  line-height: 1.25;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+/* button */
+.hero-cta {
+  text-decoration: none;
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.hero-cta:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
 /* ================= SPLIT HERO ================= */
 
 .hero-split {
@@ -84,12 +164,23 @@ a {
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   align-items: stretch;
 }
 
-/* ---------- TEXT PANEL ---------- */
+/*
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  color: white;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+*/
+
+/* ---------- TEXT PANEL ---------- 
 .hero-text {
   background: #ffffff;
   border-radius: var(--radius-xl);
@@ -99,16 +190,9 @@ a {
   justify-content: center;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
+*/
 
-.hero-eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.85rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
+/*
 .hero-text h1 {
   font-size: clamp(2rem, 3.2vw, 3rem);
   line-height: 1.2;
@@ -138,55 +222,7 @@ a {
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
 }
-
-/* ---------- IMAGE PANEL ---------- */
-.hero-media {
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  background: #000;
-  position: relative;
-}
-
-/* make carousel fill card */
-.hero-media .carousel,
-.hero-media .carousel-inner,
-.hero-media .carousel-item {
-  height: 100%;
-  min-height: 420px;
-}
-
-.hero-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.9s ease;
-}
-
-.hero-media .carousel-item.active img {
-  transform: scale(1.05);
-}
-
-/* navigation buttons inside rounded image */
-.hero-media .carousel-control-prev,
-.hero-media .carousel-control-next {
-  width: auto;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.hero-media:hover .carousel-control-prev,
-.hero-media:hover .carousel-control-next {
-  opacity: 1;
-}
-
-.hero-media .carousel-control-prev {
-  left: 18px;
-}
-.hero-media .carousel-control-next {
-  right: 18px;
-}
+*/
 
 /* ================= CONTENT ================= */
 
@@ -217,6 +253,66 @@ a {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
+.mission-section {
+  width: 100%;
+  padding: 5rem clamp(1rem, 4vw, 3rem);
+  background: var(--bg-section);
+}
+
+.mission-card {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-section);
+  box-shadow: var(--shadow-md);
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+}
+
+/* ---- media layout ---- */
+
+.mission-media {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  height: 100%;
+  background: var(--bg-section);
+}
+
+/* main large image */
+.mission-img.main {
+  height: 100%;
+  min-height: 420px;
+  border-radius: calc(var(--radius-xl) - 6px);
+  object-fit: cover;
+}
+
+/* stacked images */
+.mission-stack {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.mission-img {
+  width: 100%;
+  height: 100%;
+  min-height: 205px;
+  border-radius: calc(var(--radius-xl) - 6px);
+  object-fit: cover;
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
+  filter: brightness(0.92);
+}
+
+.mission-img:hover {
+  transform: scale(1.04);
+  filter: brightness(1);
+}
 /* Image wrapper – uses aspect-ratio for natural proportions */
 .mission-image-wrapper {
   width: 100%;
@@ -240,42 +336,63 @@ a {
 
 /* Text below */
 .mission-text {
-  padding: 2.5rem 2rem 3rem;
+  padding: clamp(2rem, 3vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .mission-text h2 {
-  color: var(--primary-color);
-  margin-bottom: 1.2rem;
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--primary);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  margin-bottom: 1rem;
 }
 
 .mission-text p {
-  line-height: 1.8;
+  line-height: 1.75;
+  color: var(--text-secondary);
   font-size: 1.05rem;
-  max-width: 720px;
-  margin: 0 auto;
-  color: #4b5563;
+  max-width: 520px;
 }
 
-/* Dark mode*/
+/* ---- mobile ---- */
 
-body.dark-mode .info-card {
-  background: #374151;
+@media (max-width: 900px) {
+  .mission-card {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-media {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-stack {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+  }
+
+  .mission-img.main {
+    min-height: 260px;
+  }
+
+  .mission-img {
+    min-height: 150px;
+  }
 }
-body.dark-mode .mission-text p {
-  color: #d1d5db;
-}
-body.dark-mode .mission-image-wrapper {
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+
+@media (max-width: 520px) {
+  .mission-media {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .mission-img {
+    height: 180px;
+  }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .mission-image-wrapper {
-    aspect-ratio: 4 / 3; /* switch to a more square ratio for mobile */
-    height: 220px; /* smaller on mobile */
-  }
-
   .mission-text {
     padding: 2rem 1.5rem 2.5rem;
   }
@@ -286,28 +403,29 @@ body.dark-mode .mission-image-wrapper {
 }
 
 @media (max-width: 480px) {
-  .mission-image-wrapper {
-    aspect-ratio: 4 / 3;
-    height: 180px;
+  .mission-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-img {
+    min-height: 170px;
   }
 }
-/* ================= MOBILE ================= */
+
+/* Dark mode*/
+body.dark-mode .info-card {
+  background: #374151;
+}
+body.dark-mode .mission-text p {
+  color: #d1d5db;
+}
+body.dark-mode .mission-image-wrapper {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
 
 /* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
-  /* hero spacing from navbar */
-  .header-hero {
-    margin-top: 64px;
-    padding: 0 0.6rem;
-  }
-
-  /* reduce hero height for phones */
-  .hero-wrapper {
-    height: clamp(340px, 62vh, 520px);
-    border-radius: 18px;
-  }
-
   /* reduce image zoom effect (was too aggressive on mobile) */
   .carousel-item.active img {
     transform: scale(1.03);
@@ -318,10 +436,6 @@ body.dark-mode .mission-image-wrapper {
     top: 55%;
     transform: translateY(-50%);
     padding: 0 0.6rem;
-  }
-
-  .carousel-caption-content {
-    max-width: 100%;
   }
 
   /* typography scaling */
@@ -345,13 +459,14 @@ body.dark-mode .mission-image-wrapper {
   }
 
   /* move controls lower so they don't cover text */
+  /*
   .carousel-control-prev,
   .carousel-control-next {
     top: auto;
     bottom: 14px;
     width: auto;
     transform: none;
-  }
+  }*/
 
   .carousel-control-prev-icon,
   .carousel-control-next-icon {
@@ -363,11 +478,6 @@ body.dark-mode .mission-image-wrapper {
 
 /* SMALL PHONES */
 @media (max-width: 420px) {
-  .hero-wrapper {
-    height: 320px;
-    border-radius: 16px;
-  }
-
   .carousel-caption {
     top: 58%;
   }
@@ -393,53 +503,65 @@ body.dark-mode .mission-image-wrapper {
     gap: 1.5rem;
   }
 
-  /* image panel */
-  .hero-media {
-    width: 100%;
-    height: 240px; /* adjust as needed */
-    min-height: 220px;
+  .hero-card {
+    min-height: 300px;
   }
 
-  /* remove transform zoom effect */
-  .hero-media .carousel-item.active img {
-    transform: none;
+  .hero-overlay {
+    padding: 1.4rem;
   }
 
-  /* keep rounded corners */
-  .hero-media {
-    border-radius: var(--radius-xl);
+  .hero-title {
+    font-size: 1.4rem;
   }
+}
 
-  /* text panel stays full width */
-  .hero-text {
-    width: 100%;
-  }
+/* image panel */
+.hero-media {
+  width: 100%;
+  height: 240px; /* adjust as needed */
+  min-height: 220px;
+}
 
-  /* optional: reduce padding inside text card */
-  .hero-text {
-    padding: 1.8rem 1.5rem;
-  }
+/* remove transform zoom effect */
+.hero-media .carousel-item.active img {
+  transform: none;
+}
 
-  /* buttons smaller */
-  .hero-btn {
-    padding: 0.7rem 1.8rem;
-    font-size: 0.9rem;
-  }
+/* keep rounded corners */
+.hero-media {
+  border-radius: var(--radius-xl);
+}
 
-  /* carousel controls smaller and inside image */
-  .hero-media .carousel-control-prev,
-  .hero-media .carousel-control-next {
-    width: 40px;
-    height: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+/* text panel stays full width */
+.hero-text {
+  width: 100%;
+}
 
-  .hero-media .carousel-control-prev-icon,
-  .hero-media .carousel-control-next-icon {
-    width: 30px;
-    height: 30px;
-  }
+/* optional: reduce padding inside text card */
+.hero-text {
+  padding: 1.8rem 1.5rem;
+}
+
+/* buttons smaller */
+.hero-btn {
+  padding: 0.7rem 1.8rem;
+  font-size: 0.9rem;
+}
+
+/* carousel controls smaller and inside image */
+.hero-media .carousel-control-prev,
+.hero-media .carousel-control-next {
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-media .carousel-control-prev-icon,
+.hero-media .carousel-control-next-icon {
+  width: 30px;
+  height: 30px;
 }
 
 /* very small phones */
@@ -540,18 +662,14 @@ body.dark-mode .gallery-subtitle {
 body.dark-mode .btn-explore {
   background: var(--primary, #3b82f6); /* brighter blue good on dark bg */
   border-color: var(--primary, #3b82f6);
-  box-shadow:
-    0 6px 16px var(--primary-glow-dark, rgba(59, 130, 246, 0.5)),
-    0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* just subtle shadow */
 }
 
 body.dark-mode .btn-explore:hover,
 body.dark-mode .btn-explore:focus-visible {
   background: var(--primary-dark, #2563eb);
   border-color: var(--primary-dark, #2563eb);
-  box-shadow:
-    0 12px 28px var(--primary-glow-dark, rgba(59, 130, 246, 0.7)),
-    0 2px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* ── Grid & Images ─────────────────────────────── */

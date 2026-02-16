@@ -161,7 +161,7 @@ function Contact() {
               type="submit"
               className={`submit-btn ${loading ? "loading" : ""}`}
               disabled={loading}
-              aria-busy={loading ? "true" : "false"}
+              aria-busy={loading}
             >
               <span aria-live="polite">
                 {loading ? (

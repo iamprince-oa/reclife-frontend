@@ -6,6 +6,8 @@ import interior2 from "../assets/interior2.jpeg";
 import image1 from "../assets/Image2.jpeg";
 import service1 from "../assets/service-1.jpg";
 import service2 from "../assets/service-2.jpg";
+import after1 from "../assets/after1.jpg";
+import special1 from "../assets/Special-Needs-Education-1024x576.webp";
 import "../styles/home.css";
 import "../styles/loading.css";
 import "../styles/cta.css";
@@ -74,86 +76,38 @@ function Home() {
       {/* Header */}
       <header className="hero-split">
         <div className="hero-container">
-          {/* IMAGE CARD 1 */}
-          <div className="hero-media">
-            <div
-              id="carousel-1"
-              className="carousel slide carousel-fade"
-              data-bs-ride="carousel"
-            >
-              <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <img className="w-100" src={slide1} alt="Programs support" />
-                  <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                    <div className="carousel-caption-content">
-                      <h5 className="text-white text-uppercase mb-3">
-                        Empowering Unique Abilities
-                      </h5>
-                      <h3 className="display-2 text-white mb-4">
-                        Discover programs fostering growth, connection,
-                        independence.
-                      </h3>
-                      <a
-                        href="#contact"
-                        className="btn btn-secondary py-md-3 px-md-5"
-                      >
-                        Contact Us
-                      </a>
-                    </div>
-                  </div>
-                </div>
+          {/* CARD 1 */}
+          <div className="hero-card">
+            <img src={slide1} alt="Programs support" className="hero-img" />
+
+            <div className="hero-overlay">
+              <div className="hero-content">
+                <p className="hero-eyebrow">Empowering Unique Abilities</p>
+                <h2 className="hero-title">
+                  Discover programs fostering growth, connection and
+                  independence
+                </h2>
+                <a href="#contact" className="hero-cta">
+                  Contact Us
+                </a>
               </div>
             </div>
           </div>
 
-          {/* IMAGE CARD 2 */}
-          <div className="hero-media">
-            <div
-              id="carousel-2"
-              className="carousel slide carousel-fade"
-              data-bs-ride="carousel"
-            >
-              <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <img className="w-100" src={slide2} alt="Holistic care" />
-                  <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                    <div className="p-3 carousel-caption-content">
-                      <h5 className="text-white text-uppercase mb-3">
-                        Holistic Care, Proven Results
-                      </h5>
-                      <h1 className="display-2 text-white mb-4">
-                        Physical, emotional, and social well-being prioritized.
-                      </h1>
-                      <a
-                        href="#contact"
-                        className="btn btn-secondary py-md-3 px-md-5"
-                      >
-                        Contact Us
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* CARD 2 */}
+          <div className="hero-card">
+            <img src={slide2} alt="Holistic care" className="hero-img" />
 
-              {/*<button
-                className="carousel-control-prev"
-                type="button"
-                data-bs-target="#carousel-2"
-                data-bs-slide="prev"
-              >
-                <span className="carousel-control-prev-icon" />
-                <span className="visually-hidden">Previous</span>
-              </button>
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target="#carousel-2"
-                data-bs-slide="next"
-              >
-                <span className="carousel-control-next-icon" />
-                <span className="visually-hidden">Next</span>
-              </button>
-              */}
+            <div className="hero-overlay">
+              <div className="hero-content">
+                <p className="hero-eyebrow">Holistic Care, Proven Results</p>
+                <h2 className="hero-title">
+                  Physical, emotional and social wellbeing prioritized
+                </h2>
+                <a href="#contact" className="hero-cta">
+                  Contact Us
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -161,100 +115,35 @@ function Home() {
 
       {/* Main Content */}
       <main className="home-content">
-        <section className="info-card" aria-labelledby="mission-title">
-          {/* Slideshow of multiple images */}
-          <div
-            id="missionCarousel"
-            className="carousel slide"
-            data-bs-ride="carousel"
-          >
-            <div className="carousel-inner">
-              {/* Slide 1 */}
-              <div className="carousel-item active">
-                <img
-                  src={service1} // Replace with your actual paths
-                  className="d-block w-100 mission-carousel-img"
-                  alt="Group enjoying inclusive outdoor activities together"
-                />
-              </div>
+        <section className="mission-section" aria-labelledby="mission-title">
+          <div className="mission-card">
+            {/* Image group */}
+            <div className="mission-media">
+              <img
+                src={after1}
+                alt="Group enjoying inclusive outdoor activities together"
+                className="mission-img main"
+              />
 
-              {/* Slide 2 */}
-              <div className="carousel-item">
+              <div className="mission-stack">
                 <img
-                  src={service2}
-                  className="d-block w-100 mission-carousel-img"
+                  src={special1}
                   alt="Participants in adaptive sports smiling and engaging"
+                  className="mission-img"
                 />
-              </div>
-
-              {/* Slide 3 */}
-              <div className="carousel-item">
                 <img
                   src={service2}
-                  className="d-block w-100 mission-carousel-img"
                   alt="Community members supporting each other in recreational programs"
+                  className="mission-img"
                 />
               </div>
-
-              {/* Add more carousel-item as needed, e.g. 4–6 total */}
             </div>
 
-            {/* Optional: Small prev/next controls – subtle for this section */}
-            <button
-              className="carousel-control-prev"
-              type="button"
-              data-bs-target="#missionCarousel"
-              data-bs-slide="prev"
-            >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next"
-              type="button"
-              data-bs-target="#missionCarousel"
-              data-bs-slide="next"
-            >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Next</span>
-            </button>
-
-            {/* Optional: Indicators (dots) at bottom */}
-            <div className="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#missionCarousel"
-                data-bs-slide-to="0"
-                className="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#missionCarousel"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#missionCarousel"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
-              {/* Add more buttons for additional slides */}
+            {/* Text */}
+            <div className="mission-text">
+              <h2 id="mission-title">Our Mission</h2>
+              <p>{data.mission}</p>
             </div>
-          </div>
-
-          {/* Text content below the slideshow */}
-          <div className="mission-text">
-            <h2 id="mission-title">Our Mission</h2>
-            <p>{data.mission}</p>
           </div>
         </section>
 
@@ -294,7 +183,7 @@ function Home() {
             />
           </div>
 
-          {/* ← Moved here – now sits below the grid */}
+          {/* Moved here – now sits below the grid */}
           <div className="text-center mt-10 md:mt-12 lg:mt-16">
             <a href="/services" className="btn-explore">
               Explore Programs

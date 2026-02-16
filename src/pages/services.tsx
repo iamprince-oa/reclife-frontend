@@ -38,25 +38,26 @@ function Services() {
 
   const sections = [
     {
-      title: "Community Inclusion",
+      title: "Safe & Simple Cooking: Meal Prep Skills Camp",
       text: data.service1,
-      image: Images.image1,
+      image: Images.meal,
     },
     {
-      title: "In-Centre Services",
+      title: "Saturday Social Circle ",
       text: data.service2,
-      image: Images.interior1,
+      image: Images.image2,
     },
     {
       title: "Online Social Circle",
       text: data.service3,
-      image: Images.image2,
+      image: Images.image1,
     },
     {
       title: "Special Skills Lounge",
       text: data.service4,
       image: Images.interior2,
     },
+    // Add more sections as needed
   ];
 
   return (
