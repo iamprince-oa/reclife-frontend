@@ -1,4 +1,6 @@
-/* About page – theme variables + scroll reveal */
+/* ==========================================================================
+   ABOUT PAGE – refined typography, colors & accessibility
+   ========================================================================== */
 
 .about-page {
   background: var(--color-bg);
@@ -6,74 +8,114 @@
   overflow-x: hidden;
 }
 
+/* ==========================================================================
+   HERO
+   ========================================================================== */
 .about-hero {
-  padding: clamp(6rem, 12vw, 10rem) clamp(1.5rem, 6vw, 4rem) clamp(4rem, 8vw, 6rem);
+  padding: clamp(7rem, 14vw, 11rem) clamp(1.5rem, 6vw, 4rem)
+    clamp(5rem, 10vw, 7rem);
   text-align: center;
   background: var(--color-bg-section);
 }
 
 .about-hero-inner {
-  max-width: 900px;
+  max-width: 920px;
   margin: 0 auto;
 }
 
 .about-hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 600;
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+  font-weight: 700;
   color: var(--color-accent);
-  margin: 0 0 1.25rem;
-  line-height: 1.15;
+  margin: 0 0 1.5rem;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
 }
 
 .about-hero-sub {
   font-family: var(--font-body);
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  line-height: 1.7;
-  color: var(--color-text-soft);
-  margin: 0 0 1.25rem;
+  font-size: clamp(1.125rem, 2.1vw, 1.4rem);
+  line-height: 1.75;
+  color: var(--color-text); /* darker than soft for better contrast */
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
 }
 
+.about-hero-sub:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   OUR MISSION – main focus area
+   ========================================================================== */
 .about-mission {
-  padding: var(--space-section) clamp(1.5rem, 6vw, 4rem);
+  padding: var(--space-section) clamp(1.5rem, 6vw, 4.5rem);
   background: var(--color-bg);
 }
 
 .about-mission-inner {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
-.about-mission-inner .section-label {
-  margin-bottom: 0.5rem;
+.about-mission .section-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent); /* accent for label → stands out gently */
+  margin: 0 0 0.75rem;
 }
 
-.about-mission-inner .section-heading {
-  margin-bottom: 1.25rem;
+.about-mission .section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 700;
+  line-height: 1.18;
+  color: var(--color-text);
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.01em;
 }
 
-.about-mission-inner p {
+.about-mission p {
   font-family: var(--font-body);
-  font-size: 1.1rem;
-  line-height: 1.75;
-  color: var(--color-text-soft);
-  margin: 0 0 1rem;
+  font-size: 1.125rem; /* slightly larger → better readability */
+  line-height: 1.78;
+  color: var(--color-text); /* stronger contrast than soft */
+  margin: 0 0 1.25rem;
 }
 
+.about-mission p:last-child {
+  margin-bottom: 0;
+}
+
+/* Optional: subtle highlight on first paragraph of mission */
+.about-mission-inner > p:first-of-type {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* ==========================================================================
+   HIGHLIGHTS / Why choose us
+   ========================================================================== */
 .about-highlights {
-  padding: var(--space-section) clamp(1.5rem, 6vw, 4rem);
+  padding: var(--space-section) clamp(1.5rem, 6vw, 4.5rem);
   background: var(--color-bg-section);
 }
 
 .about-highlights-title {
   text-align: center;
-  margin-bottom: 2.5rem;
+  font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+  margin-bottom: 3rem;
+  color: var(--color-text);
 }
 
 .highlights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: clamp(1.5rem, 3vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -81,74 +123,100 @@
 .highlight-card {
   background: var(--color-bg);
   border-radius: var(--radius);
-  padding: 2rem 1.5rem;
+  padding: 2.25rem 1.75rem;
   text-align: center;
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.highlight-card:hover {
-  transform: translateY(-6px);
+.highlight-card:hover,
+.highlight-card:focus-within {
+  transform: translateY(-8px);
   box-shadow: var(--shadow-hover);
+  border-color: var(--color-accent-light) rgba(var(--color-accent-rgb), 0.3);
 }
 
 .highlight-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
   line-height: 1;
+  color: var(--color-accent);
 }
 
 .highlight-card h3 {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--color-text);
-  margin: 0 0 0.75rem;
+  margin: 0 0 1rem;
 }
 
 .highlight-card p {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 1.025rem;
+  line-height: 1.7;
   color: var(--color-text-soft);
   margin: 0;
 }
 
-/* Loading (shown when no data yet) */
+/* ==========================================================================
+   LOADING STATE
+   ========================================================================== */
 .loading-wrapper {
   min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.25rem;
   background: var(--color-bg);
 }
 
-.loading-wrapper .loading-text {
+.loading-text {
   margin: 0;
+  font-size: 1.1rem;
   color: var(--color-text-soft);
 }
 
-.loading-wrapper .spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(37, 99, 235, 0.2);
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(37, 99, 235, 0.18);
   border-top-color: var(--color-accent);
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.9s linear infinite;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
+/* ==========================================================================
+   RESPONSIVE TWEAKS
+   ========================================================================== */
 @media (max-width: 768px) {
   .about-hero {
-    padding: 5rem 1.5rem 4rem;
+    padding: 5.5rem 1.5rem 4rem;
   }
+
+  .about-hero-title {
+    font-size: clamp(2rem, 6vw, 2.8rem);
+  }
+
+  .about-mission .section-heading {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+  }
+
   .highlights-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-mission p,
+  .about-hero-sub {
+    font-size: 1.05rem;
   }
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Trophy, HeartHandshake, Leaf, Heart } from "lucide-react";
 import Footer from "../components/Footer";
 import CTA from "../components/cta";
 import { Helmet } from "react-helmet";
@@ -108,40 +109,39 @@ function About() {
           <div
             className={`highlights-grid ${highlights.visible ? "reveal-in-view" : ""}`}
           >
+            {/* 1 */}
             <div className="highlight-card">
-              <div className="highlight-icon" aria-hidden>
-                🏆
-              </div>
+              <Trophy className="highlight-icon" aria-hidden="true" />
               <h3>Award-Winning Programs</h3>
               <p>
                 Recognized for excellence in creating meaningful,
                 person-centered experiences.
               </p>
             </div>
+
+            {/* 2 */}
             <div className="highlight-card">
-              <div className="highlight-icon" aria-hidden>
-                🤝
-              </div>
+              <HeartHandshake className="highlight-icon" aria-hidden="true" />
               <h3>Compassionate and Professional Team</h3>
               <p>
                 Dedicated experts who bring care, skill, and understanding to
                 every interaction.
               </p>
             </div>
+
+            {/* 3 */}
             <div className="highlight-card">
-              <div className="highlight-icon" aria-hidden>
-                🌿
-              </div>
+              <Leaf className="highlight-icon" aria-hidden="true" />
               <h3>Holistic Approach to Well-Being</h3>
               <p>
                 Supporting physical, social, emotional, and personal growth in
                 every program.
               </p>
             </div>
+
+            {/* 4 */}
             <div className="highlight-card">
-              <div className="highlight-icon" aria-hidden>
-                ❤️
-              </div>
+              <Heart className="highlight-icon" aria-hidden="true" />
               <h3>Recognized by Families</h3>
               <p>
                 Trusted partner chosen time and again for consistent, heartfelt
