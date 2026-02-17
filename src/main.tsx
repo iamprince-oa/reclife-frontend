@@ -1,5 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "./styles/variables.css";
+import "./index.css";
+import "./styles/reveal.css";
 import "./styles/navbar.css";
 import "./styles/home.css";
 import "./styles/about.css";

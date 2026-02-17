@@ -3,7 +3,7 @@
    ================================================ */
 
 .contact-page {
-  background: var(--light-bg, #f9fafb);
+  background: var(--color-bg);
   min-height: 100vh;
   padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem) 6rem;
   display: flex;
@@ -14,11 +14,15 @@
 .contact-container {
   max-width: 680px;
   width: 100%;
-  background: white;
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   padding: clamp(2.5rem, 5vw, 4rem);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-container:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 .contact-header {
@@ -27,17 +31,19 @@
 }
 
 .contact-header h1 {
+  font-family: var(--font-display);
   font-size: clamp(2.6rem, 7vw, 3.8rem);
-  font-weight: 800;
-  color: var(--primary-color, #3b82f6);
+  font-weight: 600;
+  color: var(--color-accent);
   margin: 0 0 1rem;
   line-height: 1.1;
 }
 
 .contact-subtitle {
+  font-family: var(--font-body);
   font-size: 1.2rem;
   line-height: 1.6;
-  color: #4b5563;
+  color: var(--color-text-soft);
   max-width: 540px;
   margin: 0 auto;
 }
@@ -57,18 +63,20 @@
 .form-group textarea {
   width: 100%;
   padding: 1.1rem 1.3rem;
-  border: 1.5px solid #d1d5db;
+  border: 1.5px solid var(--color-input-border);
   border-radius: 0.75rem;
   font-size: 1.05rem;
-  background: #f9fafb;
+  font-family: var(--font-body);
+  background: var(--color-input-bg);
+  color: var(--color-text);
   transition: all 0.25s ease;
   outline: none;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: var(--primary-color, #3b82f6);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
 }
 
 .form-group label {
@@ -76,7 +84,7 @@
   left: 1.3rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #6b7280;
+  color: var(--color-text-soft);
   font-size: 1.05rem;
   pointer-events: none;
   transition: all 0.25s ease;
@@ -89,9 +97,9 @@
   top: -0.6rem;
   left: 1rem;
   font-size: 0.9rem;
-  background: white;
+  background: var(--color-bg-section);
   padding: 0 0.5rem;
-  color: var(--primary-color, #3b82f6);
+  color: var(--color-accent);
   font-weight: 600;
 }
 
@@ -102,12 +110,13 @@ textarea {
 
 /* Submit Button */
 .submit-btn {
-  background: var(--primary-color, #3b82f6);
+  background: var(--color-accent);
   color: white;
   border: none;
   padding: 1.1rem 2rem;
   font-size: 1.15rem;
   font-weight: 600;
+  font-family: var(--font-body);
   border-radius: 0.75rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -119,18 +128,18 @@ textarea {
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #2563eb;
+  background: var(--color-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
 }
 
 .submit-btn:disabled {
-  background: #9ca3af;
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
 .submit-btn.loading {
-  background: #60a5fa;
+  background: var(--color-accent);
 }
 
 /* Small spinner inside button */
@@ -168,47 +177,6 @@ textarea {
   background: #fef2f2;
   color: #991b1b;
   border: 1px solid #f87171;
-}
-
-/* ── Dark Mode ── */
-body.dark-mode .contact-page {
-  background: #0f172a;
-}
-
-body.dark-mode .contact-container {
-  background: #1e293b;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-}
-
-body.dark-mode .form-group input,
-body.dark-mode .form-group textarea {
-  background: #111827;
-  border-color: #374151;
-  color: #e5e7eb;
-}
-
-body.dark-mode .form-group label {
-  color: #9ca3af;
-}
-
-body.dark-mode .form-group input:focus + label,
-body.dark-mode .form-group input:not(:placeholder-shown) + label,
-body.dark-mode .form-group textarea:focus + label,
-body.dark-mode .form-group textarea:not(:placeholder-shown) + label {
-  background: #1e293b;
-  color: #93c5fd;
-}
-
-body.dark-mode .form-response.success {
-  background: #064e3b;
-  color: #6ee7b7;
-  border-color: #34d399;
-}
-
-body.dark-mode .form-response.error {
-  background: #7f1d1d;
-  color: #fca5a5;
-  border-color: #f87171;
 }
 
 /* ── Responsive ── */

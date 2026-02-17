@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import CTA from "../components/cta";
-import { Helmet } from "react-helmet"; // better for SEO/title management
+import { Helmet } from "react-helmet";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 import "../styles/about.css";
 
 interface AboutData {
@@ -13,9 +14,15 @@ interface AboutData {
 
 function About() {
   const [data, setData] = useState<AboutData | null>(null);
+  const hero = useScrollReveal(0.08);
+  const mission = useScrollReveal(0.08);
+  const highlights = useScrollReveal(0.06);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/about/") // switch to "https://reclife-backend.onrender.com/api/about/" in production
+    fetch(
+      //"http://127.0.0.1:8000/api/about/",
+      "https://w5v0z3d3-8000.uks1.devtunnels.ms/api/about/", // switch to "https://reclife-backend.onrender.com/api/about/" in production
+    ) // switch to "https://reclife-backend.onrender.com/api/about/" in production
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
         return res.json();
@@ -51,75 +58,81 @@ function About() {
         />
       </Helmet>
 
-      <section className="about-hero">
-        <div className="hero-content">
-          <h1>Empowering Lives Through Tailored Support</h1>
-          <p className="hero-subtitle">
-            Join us for affordable, reliable, and consistent support that
-            exceeds expectations. We aim to build lasting relationships and
-            offer unwavering support to families and individuals alike.
-          </p>
-          <p className="hero-subtitle">
-            Our skilled team provides high-quality services designed for
-            individuals with unique talents and abilities. Whether in-home,
-            community-based, or group-oriented, our programs are crafted to meet
-            your needs while fostering social connections.
-          </p>
-        </div>
-      </section>
-
-      <section className="mission-section">
-        <h2>Our Mission</h2>
-        <p>
-          At RecLife, we believe everyone deserves the opportunity to thrive. We
-          deliver tailored, inclusive support that empowers individuals with
-          developmental needs to build skills, form connections, and live
-          joyful, fulfilling lives.
-        </p>
-        <p>
-          From safe cooking classes and social circles to skill-building
-          lounges, every program is designed with care, flexibility, and real
-          impact in mind.
-        </p>
-      </section>
-
-      <div className="about-content">
-        <section className="highlights-grid">
-          <div className="highlight-card">
-            <div className="highlight-icon">🏆</div>
-            <h3>Award-Winning Programs</h3>
-            <p>
-              Recognized for excellence in creating meaningful, person-centered
-              experiences.
+      <main className="about-page">
+        <section className="about-hero" ref={hero.ref}>
+          <div className={`about-hero-inner ${hero.visible ? "reveal-in-view" : ""}`}>
+            <h1 className="about-hero-title">Empowering Lives Through Tailored Support</h1>
+            <p className="about-hero-sub">
+              Join us for affordable, reliable, and consistent support that
+              exceeds expectations. We aim to build lasting relationships and
+              offer unwavering support to families and individuals alike.
             </p>
-          </div>
-          <div className="highlight-card">
-            <div className="highlight-icon">🤝</div>
-            <h3>Compassionate and Professional Team</h3>
-            <p>
-              Dedicated experts who bring care, skill, and understanding to
-              every interaction.
-            </p>
-          </div>
-          <div className="highlight-card">
-            <div className="highlight-icon">🌿</div>
-            <h3>Holistic Approach to Well-Being</h3>
-            <p>
-              Supporting physical, social, emotional, and personal growth in
-              every program.
-            </p>
-          </div>
-          <div className="highlight-card">
-            <div className="highlight-icon">❤️</div>
-            <h3>Recognized by Families</h3>
-            <p>
-              Trusted partner chosen time and again for consistent, heartfelt
-              support.
+            <p className="about-hero-sub">
+              Our skilled team provides high-quality services designed for
+              individuals with unique talents and abilities. Whether in-home,
+              community-based, or group-oriented, our programs are crafted to meet
+              your needs while fostering social connections.
             </p>
           </div>
         </section>
+
+        <section className="about-mission" ref={mission.ref}>
+          <div className={`about-mission-inner ${mission.visible ? "reveal-in-view" : ""}`}>
+            <h2 className="section-label">Our Mission</h2>
+            <h3 className="section-heading">Everyone deserves the opportunity to thrive</h3>
+            <p>
+              At RecLife, we deliver tailored, inclusive support that empowers
+              individuals with developmental needs to build skills, form
+              connections, and live joyful, fulfilling lives.
+            </p>
+            <p>
+              From safe cooking classes and social circles to skill-building
+              lounges, every program is designed with care, flexibility, and real
+              impact in mind.
+            </p>
+          </div>
+        </section>
+
+        <section className="about-highlights" ref={highlights.ref}>
+          <h2 className="section-heading about-highlights-title">Why families choose us</h2>
+          <div className={`highlights-grid ${highlights.visible ? "reveal-in-view" : ""}`}>
+            <div className="highlight-card">
+              <div className="highlight-icon" aria-hidden>🏆</div>
+              <h3>Award-Winning Programs</h3>
+              <p>
+                Recognized for excellence in creating meaningful, person-centered
+                experiences.
+              </p>
+            </div>
+            <div className="highlight-card">
+              <div className="highlight-icon" aria-hidden>🤝</div>
+              <h3>Compassionate and Professional Team</h3>
+              <p>
+                Dedicated experts who bring care, skill, and understanding to
+                every interaction.
+              </p>
+            </div>
+            <div className="highlight-card">
+              <div className="highlight-icon" aria-hidden>🌿</div>
+              <h3>Holistic Approach to Well-Being</h3>
+              <p>
+                Supporting physical, social, emotional, and personal growth in
+                every program.
+              </p>
+            </div>
+            <div className="highlight-card">
+              <div className="highlight-icon" aria-hidden>❤️</div>
+              <h3>Recognized by Families</h3>
+              <p>
+                Trusted partner chosen time and again for consistent, heartfelt
+                support.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <CTA />
-      </div>
+      </main>
 
       <Footer />
     </>

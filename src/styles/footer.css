@@ -1,18 +1,18 @@
 .footer {
-  background-color: var(--footer-bg, #1f2937); /* match your theme background */
-  color: var(--footer-text, #f3f4f6); /* main text color */
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
   padding: 2rem 1rem 1rem;
-  font-family: "Jost", sans-serif;
+  font-family: var(--font-body);
 }
 
 .footer a {
-  color: var(--footer-link, #328aee);
+  color: var(--footer-link);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer a:hover {
-  color: var(--footer-link-hover, #fff);
+  color: var(--footer-link-hover);
 }
 
 .footer-container {
@@ -42,7 +42,7 @@
 }
 
 .footer-icon {
-  color: var(--footer-icon, #328aee);
+  color: var(--footer-icon);
   min-width: 20px;
 }
 

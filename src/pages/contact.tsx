@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 import "../styles/contact.css";
 
 interface ContactForm {
@@ -27,6 +28,7 @@ interface ContactResponse {
 }
 
 function Contact() {
+  const header = useScrollReveal(0.1);
   const [formData, setFormData] = useState<ContactForm>({
     name: "",
     email: "",
@@ -61,11 +63,15 @@ function Contact() {
     setResponse(null);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/contact/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        //"http://127.0.0.1:8000/api/contact/",
+        "https://w5v0z3d3-8000.uks1.devtunnels.ms/api/contact/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+      );
 
       const data: ContactResponse = await res.json();
 
@@ -107,7 +113,7 @@ function Contact() {
 
       <main className="contact-page">
         <div className="contact-container">
-          <div className="contact-header">
+          <div className={`contact-header ${header.visible ? "reveal-in-view" : ""}`} ref={header.ref}>
             <h1>Get in Touch</h1>
             <p className="contact-subtitle">
               We're here to listen and help. Reach out with any questions about
@@ -161,7 +167,7 @@ function Contact() {
               type="submit"
               className={`submit-btn ${loading ? "loading" : ""}`}
               disabled={loading}
-              aria-busy={loading}
+              aria-busy={loading ? "true" : "false"}
             >
               <span aria-live="polite">
                 {loading ? (

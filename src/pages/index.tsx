@@ -1,17 +1,12 @@
-import { useEffect, useState, lazy, Suspense } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import slide1 from "../assets/interior1.jpeg";
-import slide2 from "../assets/interior2.jpeg";
-import interior1 from "../assets/interior1.jpeg";
-import interior2 from "../assets/interior2.jpeg";
-import image1 from "../assets/Image2.jpeg";
-import service1 from "../assets/service-1.jpg";
-import service2 from "../assets/service-2.jpg";
 import after1 from "../assets/after1.jpg";
 import special1 from "../assets/Special-Needs-Education-1024x576.webp";
+import { interior1, service1, image1, image2, meal } from "../assets";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+
 import "../styles/home.css";
-import "../styles/loading.css";
-import "../styles/cta.css";
-import { Helmet } from "react-helmet"; // safer for React 19
+import { Helmet } from "react-helmet";
 
 const Footer = lazy(() => import("../components/Footer"));
 const CTA = lazy(() => import("../components/cta"));
@@ -22,181 +17,274 @@ interface HomeData {
   mission: string;
 }
 
-function Home() {
-  const [data, setData] = useState<HomeData | null>(null);
+const HERO_LINE_1 = "Building confidence.";
+const HERO_LINE_2 = "Through meaningful activity.";
+const TYPE_SPEED_MS = 38;
+const PAUSE_BETWEEN_LINES_MS = 220;
+const CURSOR_BLINK_MS = 480;
+
+function HeroTypewriter() {
+  const [line1, setLine1] = useState("");
+  const [line2, setLine2] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/")
-      .then((res) => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
-      })
-      .then((json) => setData(json))
-      .catch((err) => console.error("Fetch error:", err));
+    let cancelled = false;
+    const cursorInterval = setInterval(() => {
+      if (cancelled) return;
+      setShowCursor((c) => !c);
+    }, CURSOR_BLINK_MS);
+
+    const typeLine1 = () => {
+      return new Promise<void>((resolve) => {
+        let i = 0;
+        const id = setInterval(() => {
+          if (cancelled) {
+            clearInterval(id);
+            return;
+          }
+          if (i <= HERO_LINE_1.length) {
+            setLine1(HERO_LINE_1.slice(0, i));
+            i++;
+          } else {
+            clearInterval(id);
+            resolve();
+          }
+        }, TYPE_SPEED_MS);
+      });
+    };
+
+    const typeLine2 = () => {
+      return new Promise<void>((resolve) => {
+        let i = 0;
+        const id = setInterval(() => {
+          if (cancelled) {
+            clearInterval(id);
+            return;
+          }
+          if (i <= HERO_LINE_2.length) {
+            setLine2(HERO_LINE_2.slice(0, i));
+            i++;
+          } else {
+            clearInterval(id);
+            setDone(true);
+            setShowCursor(false);
+            resolve();
+          }
+        }, TYPE_SPEED_MS);
+      });
+    };
+
+    const run = async () => {
+      await typeLine1();
+      if (cancelled) return;
+      await new Promise((r) => setTimeout(r, PAUSE_BETWEEN_LINES_MS));
+      if (cancelled) return;
+      await typeLine2();
+    };
+    run();
+
+    return () => {
+      cancelled = true;
+      clearInterval(cursorInterval);
+    };
+  }, []);
+
+  const cursorOnLine1 = line2 === "";
+  const cursorOnLine2 = line2.length > 0 && !done;
+
+  return (
+    <h1 className="hero-headline">
+      <span className="hero-headline-line">
+        {line1}
+        {cursorOnLine1 && (
+          <span className="hero-cursor" aria-hidden>
+            {showCursor ? "|" : "\u00A0"}
+          </span>
+        )}
+      </span>
+      <span className="hero-headline-line">
+        {line2}
+        {cursorOnLine2 && (
+          <span className="hero-cursor" aria-hidden>
+            {showCursor ? "|" : "\u00A0"}
+          </span>
+        )}
+      </span>
+    </h1>
+  );
+}
+
+const PROGRAMS = [
+  {
+    title: "Meal Prep & Cooking",
+    description:
+      "Safe, simple cooking and meal prep skills that build independence and confidence in the kitchen.",
+    image: meal,
+    href: "/services",
+  },
+  {
+    title: "Social Circles",
+    description:
+      "In-person and online social programs that encourage connection, participation and belonging.",
+    image: image2,
+    href: "/services",
+  },
+  {
+    title: "Special Skills Lounge",
+    description:
+      "Tailored activities that support growth, life skills and meaningful recreation for every participant.",
+    image: special1,
+    href: "/services",
+  },
+];
+
+function Home() {
+  const [data, setData] = useState<HomeData | null>(null);
+  const story = useScrollReveal();
+  const impactIntro = useScrollReveal(0.08);
+  const impactCollage = useScrollReveal(0.06);
+  const ready = useScrollReveal();
+
+  useEffect(() => {
+    fetch("https://w5v0z3d3-8000.uks1.devtunnels.ms/api/")
+      .then((res) => res.json())
+      .then(setData)
+      .catch(console.error);
   }, []);
 
   if (!data)
     return (
-      <div className="loading-wrapper" role="status" aria-live="polite">
-        <div className="spinner" aria-hidden="true"></div>
-        <p className="loading-text">Loading...</p>
+      <div className="loading">
+        <div className="spinner" />
+        <p>Loading...</p>
       </div>
     );
 
   return (
     <>
-      {/* SEO */}
       <Helmet>
         <title>{data.title}</title>
         <meta name="description" content={data.mission} />
-        <meta
-          name="keywords"
-          content="RecLife, Development, Support, Accessibility"
-        />
-        <meta name="author" content="RecLife" />
-        <link rel="canonical" href="https://reclife.com/" />
-
-        <meta property="og:title" content={data.title} />
-        <meta property="og:description" content={data.mission} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/default-og.jpg" />
-        <meta property="og:url" content="https://reclife.com/" />
-
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "RecLife",
-            url: "https://reclife.com/",
-            logo: "https://reclife.com/logo.jpeg",
-          })}
-        </script>
       </Helmet>
 
-      {/* Header */}
-      <header className="hero-split">
-        <div className="hero-container">
-          {/* CARD 1 */}
-          <div className="hero-card">
-            <img src={slide1} alt="Programs support" className="hero-img" />
+      {/* HERO — typewriter headline, stable background, clear text */}
+      <header className="hero">
+        <div className="hero-bg-wrap" aria-hidden>
+          <img src={slide1} alt="" className="hero-bg" />
+          <div className="hero-overlay" />
+        </div>
 
-            <div className="hero-overlay">
-              <div className="hero-content">
-                <p className="hero-eyebrow">Empowering Unique Abilities</p>
-                <h2 className="hero-title">
-                  Discover programs fostering growth, connection and
-                  independence
-                </h2>
-                <a href="#contact" className="hero-cta">
-                  Contact Us
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 2 */}
-          <div className="hero-card">
-            <img src={slide2} alt="Holistic care" className="hero-img" />
-
-            <div className="hero-overlay">
-              <div className="hero-content">
-                <p className="hero-eyebrow">Holistic Care, Proven Results</p>
-                <h2 className="hero-title">
-                  Physical, emotional and social wellbeing prioritized
-                </h2>
-                <a href="#contact" className="hero-cta">
-                  Contact Us
-                </a>
-              </div>
-            </div>
+        <div className="hero-inner">
+          <HeroTypewriter />
+          <p className="hero-tagline">
+            More than programs—we create belonging, growth and everyday life skills
+            through inclusive recreation.
+          </p>
+          <p className="hero-brand">RECLIFE</p>
+          <div className="hero-buttons">
+            <a href="#contact" className="btn btn-primary">
+              Start a Conversation
+            </a>
+            <a href="/services" className="btn btn-ghost">
+              View Programs
+            </a>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="home-content">
-        <section className="mission-section" aria-labelledby="mission-title">
-          <div className="mission-card">
-            {/* Image group */}
-            <div className="mission-media">
-              <img
-                src={after1}
-                alt="Group enjoying inclusive outdoor activities together"
-                className="mission-img main"
-              />
-
-              <div className="mission-stack">
-                <img
-                  src={special1}
-                  alt="Participants in adaptive sports smiling and engaging"
-                  className="mission-img"
-                />
-                <img
-                  src={service2}
-                  alt="Community members supporting each other in recreational programs"
-                  className="mission-img"
-                />
-              </div>
+      <main>
+        {/* MEET THE MISSION — personal intro block */}
+        <section className="section section-meet" id="story" ref={story.ref}>
+          <h2 className="section-label">Why we&apos;re here</h2>
+          <div className={`meet-grid ${story.visible ? "reveal-in-view" : ""}`}>
+            <div className="meet-content">
+              <p className="meet-lead">{data.mission}</p>
+              <p className="meet-sub">
+                We design recreational programs that support confidence,
+                independence and joy. When you connect with RecLife, you can
+                expect that and more.
+              </p>
             </div>
-
-            {/* Text */}
-            <div className="mission-text">
-              <h2 id="mission-title">Our Mission</h2>
-              <p>{data.mission}</p>
+            <div className="meet-image hover-reveal">
+              <img src={after1} alt="Participants enjoying outdoor activity" />
             </div>
           </div>
         </section>
 
-        {/* Image collage – static grid instead of slideshow */}
-        <section className="gallery-section" aria-labelledby="gallery-title">
-          <div className="gallery-header text-center">
-            <h2 id="gallery-title">Our Impact in Action</h2>
-            <p className="gallery-subtitle">
-              Meaningful moments created every day through inclusive recreation
-            </p>
+        {/* SERVICES PREVIEW — card grid with GET STARTED */}
+        <section className="section section-services">
+          <div ref={impactIntro.ref as React.RefObject<HTMLDivElement>}>
+            <h2 className={`section-heading ${impactIntro.visible ? "reveal-in-view" : ""}`}>Here&apos;s how we can support you</h2>
           </div>
-
-          <div className="collage-grid">
-            <img
-              src={image1}
-              alt="Person engaged in meaningful recreational activity"
-              className="collage-img tall"
-              loading="lazy"
-            />
-            <img
-              src={interior1}
-              alt="Group participating in adaptive recreation session"
-              className="collage-img wide"
-              loading="lazy"
-            />
-            <img
-              src={service1}
-              alt="Participant enjoying supported inclusive activity"
-              className="collage-img"
-              loading="lazy"
-            />
-            <img
-              src={interior2}
-              alt="Joyful community connection moment"
-              className="collage-img"
-              loading="lazy"
-            />
+          <p className="section-intro">
+            A quick introduction to our programs and how we can assist you.
+          </p>
+          <div className={`service-cards ${impactCollage.visible ? "reveal-in-view" : ""}`} ref={impactCollage.ref as React.RefObject<HTMLDivElement>}>
+            {PROGRAMS.map((program) => (
+              <article key={program.title} className="service-card">
+                <div className="service-card-image hover-zoom">
+                  <img src={program.image} alt="" />
+                </div>
+                <div className="service-card-body">
+                  <h3 className="service-card-title">{program.title}</h3>
+                  <p className="service-card-desc">{program.description}</p>
+                  <a href={program.href} className="btn btn-get-started">
+                    Get Started
+                  </a>
+                </div>
+              </article>
+            ))}
           </div>
+        </section>
 
-          {/* Moved here – now sits below the grid */}
-          <div className="text-center mt-10 md:mt-12 lg:mt-16">
-            <a href="/services" className="btn-explore">
+        {/* REAL GROWTH — collage + CTA */}
+        <section className="section section-impact">
+          <h2 className="section-heading">Real growth happens through experience</h2>
+          <p className="section-intro">
+            Every activity is designed to encourage participation, independence
+            and connection.
+          </p>
+          <div className="impact-collage">
+            <div className="impact-img main hover-zoom">
+              <img src={image1} alt="RecLife program activity" />
+            </div>
+            <div className="impact-img top hover-zoom">
+              <img src={interior1} alt="Indoor recreation" />
+            </div>
+            <div className="impact-img bottom hover-zoom">
+              <img src={service1} alt="Service in action" />
+            </div>
+            <div className="impact-img side hover-zoom">
+              <img src={special1} alt="Special needs education" />
+            </div>
+          </div>
+          <div className="section-cta">
+            <a href="/services" className="btn btn-primary btn-large">
               Explore Programs
             </a>
           </div>
         </section>
 
-        <Suspense fallback={<div>Loading call-to-action...</div>}>
+        {/* SO, READY TO START? — bridge to contact */}
+        <section className="section section-ready" ref={ready.ref}>
+          <h2 className={`section-heading ${ready.visible ? "reveal-in-view" : ""}`}>So, ready to start?</h2>
+          <p className="section-intro">
+            Reach out and we&apos;ll help find the right fit for you or someone you
+            care about.
+          </p>
+          <a href="#contact" className="btn btn-primary btn-large">
+            Let&apos;s Connect
+          </a>
+        </section>
+
+        <Suspense fallback={<div />}>
           <CTA />
         </Suspense>
       </main>
 
-      <Suspense fallback={<div>Loading footer...</div>}>
+      <Suspense fallback={<div />}>
         <Footer />
       </Suspense>
     </>

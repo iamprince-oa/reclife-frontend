@@ -3,9 +3,10 @@
    ================================================ */
 
 .testimonials-page {
-  background: var(--light-bg, #f9fafb);
+  background: var(--color-bg);
   min-height: 100vh;
   padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 4vw, 3rem) 6rem;
+  overflow-x: hidden;
 }
 
 .hero-section {
@@ -14,45 +15,47 @@
 }
 
 .page-title {
+  font-family: var(--font-display);
   font-size: clamp(2.8rem, 7vw, 4.2rem);
-  font-weight: 800;
-  color: var(--primary-color, #3b82f6);
+  font-weight: 600;
+  color: var(--color-accent);
   margin: 0 0 1rem;
   line-height: 1.1;
 }
 
 .page-subtitle {
+  font-family: var(--font-body);
   font-size: 1.25rem;
   line-height: 1.6;
-  color: #4b5563;
+  color: var(--color-text-soft);
   max-width: 720px;
   margin: 0 auto;
 }
 
-/* ── Form Section ── */
 .testimonial-form-section {
   max-width: 720px;
   margin: 0 auto 6rem;
 }
 
 .form-container {
-  background: white;
-  border-radius: 1.5rem;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
   padding: clamp(2rem, 5vw, 3.5rem);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow);
 }
 
 .form-container h2 {
+  font-family: var(--font-display);
   font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--text-color, #1f2937);
+  font-weight: 600;
+  color: var(--color-text);
   margin-bottom: 0.8rem;
   text-align: center;
 }
 
 .form-intro {
   text-align: center;
-  color: #4b5563;
+  color: var(--color-text-soft);
   margin-bottom: 2.5rem;
   font-size: 1.1rem;
 }
@@ -71,17 +74,19 @@
 .form-group textarea {
   width: 100%;
   padding: 1.2rem 1.4rem;
-  border: 1.5px solid #d1d5db;
+  border: 1.5px solid var(--color-input-border);
   border-radius: 0.8rem;
   font-size: 1.05rem;
-  background: #f9fafb;
+  font-family: var(--font-body);
+  background: var(--color-input-bg);
+  color: var(--color-text);
   transition: all 0.25s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: var(--primary-color, #3b82f6);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
   outline: none;
 }
 
@@ -90,7 +95,7 @@
   left: 1.4rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #6b7280;
+  color: var(--color-text-soft);
   font-size: 1.05rem;
   pointer-events: none;
   transition: all 0.25s ease;
@@ -103,9 +108,9 @@
   top: -0.7rem;
   left: 1.1rem;
   font-size: 0.9rem;
-  background: white;
+  background: var(--color-bg-section);
   padding: 0 0.4rem;
-  color: var(--primary-color, #3b82f6);
+  color: var(--color-accent);
   font-weight: 600;
 }
 
@@ -115,12 +120,13 @@ textarea {
 }
 
 .submit-btn {
-  background: var(--primary-color, #3b82f6);
+  background: var(--color-accent);
   color: white;
   border: none;
   padding: 1.1rem;
   font-size: 1.15rem;
   font-weight: 600;
+  font-family: var(--font-body);
   border-radius: 0.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -128,13 +134,13 @@ textarea {
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #2563eb;
+  background: var(--color-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
 }
 
 .submit-btn:disabled {
-  background: #9ca3af;
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
@@ -181,10 +187,11 @@ textarea {
 }
 
 .testimonial-list-section h2 {
+  font-family: var(--font-display);
   font-size: 2.4rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
-  color: var(--text-color, #1f2937);
+  color: var(--color-text);
   margin: 0 0 3rem;
 }
 
@@ -195,22 +202,22 @@ textarea {
 }
 
 .testimonial-card {
-  background: white;
-  border-radius: 1.25rem;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
   padding: 2rem 1.8rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow);
   position: relative;
-  transition: all 0.32s ease;
+  transition: transform 0.32s ease, box-shadow 0.32s ease;
 }
 
 .testimonial-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-hover);
 }
 
 .quote-icon {
   font-size: 5rem;
-  color: rgba(59, 130, 246, 0.12); /* subtle primary color */
+  color: rgba(37, 99, 235, 0.12);
   position: absolute;
   top: 0.5rem;
   left: 1rem;
@@ -221,7 +228,7 @@ textarea {
 .testimonial-message {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #374151;
+  color: var(--color-text-soft);
   margin: 1rem 0 1.5rem;
   position: relative;
   z-index: 1;
@@ -236,78 +243,23 @@ textarea {
 
 .testimonial-name {
   font-weight: 700;
-  color: var(--primary-color, #3b82f6);
+  color: var(--color-accent);
   font-size: 1.15rem;
 }
 
 .testimonial-date {
   font-size: 0.95rem;
-  color: #6b7280;
+  color: var(--color-text-soft);
 }
 
-/* Empty & Loading States */
 .empty-state {
   text-align: center;
   font-size: 1.2rem;
-  color: #4b5563;
+  color: var(--color-text-soft);
   padding: 4rem 1rem;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* ── Dark Mode ── */
-body.dark-mode .testimonials-page {
-  background: #0f172a;
-}
-
-body.dark-mode .page-title,
-body.dark-mode .testimonial-list-section h2 {
-  color: #93c5fd;
-}
-
-body.dark-mode .page-subtitle,
-body.dark-mode .form-intro,
-body.dark-mode .testimonial-message,
-body.dark-mode .testimonial-date {
-  color: #cbd5e1;
-}
-
-body.dark-mode .form-container,
-body.dark-mode .testimonial-card {
-  background: #1e293b;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-body.dark-mode .form-group input,
-body.dark-mode .form-group textarea {
-  background: #111827;
-  border-color: #374151;
-  color: #e5e7eb;
-}
-
-body.dark-mode .form-group label {
-  color: #9ca3af;
-}
-
-body.dark-mode .form-group input:focus + label,
-body.dark-mode .form-group input:not(:placeholder-shown) + label,
-body.dark-mode .form-group textarea:focus + label,
-body.dark-mode .form-group textarea:not(:placeholder-shown) + label {
-  background: #1e293b;
-  color: #93c5fd;
-}
-
-body.dark-mode .form-response.success {
-  background: #064e3b;
-  color: #6ee7b7;
-  border-color: #34d399;
-}
-
-body.dark-mode .form-response.error {
-  background: #7f1d1d;
-  color: #fca5a5;
-  border-color: #f87171;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 /* ── Responsive ── */

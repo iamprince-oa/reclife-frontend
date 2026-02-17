@@ -3,21 +3,19 @@
    ================================================ */
 
 .cta-section {
-  background: var(--light-bg);
+  background: var(--color-bg-section);
   border-radius: var(--radius-xl);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow);
   padding: clamp(3rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
   margin: 5rem auto;
   max-width: 1200px;
-  overflow: hidden; /* helps with map corners */
-  transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.4s ease;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
 .cta-section:hover {
   transform: translateY(-10px);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-hover);
 }
 
 .cta-container {

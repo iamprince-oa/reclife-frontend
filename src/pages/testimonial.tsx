@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import { Helmet } from "react-helmet";
-import { useNavigate } from "react-router-dom"; // <-- Added
+import { useNavigate } from "react-router-dom";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 import Footer from "../components/Footer";
 import "../styles/testimonial.css";
 import "../styles/loading.css";
@@ -24,7 +25,10 @@ interface TestimonialPostResponse {
 }
 
 function Testimonials() {
-  const navigate = useNavigate(); // <-- Added
+  const navigate = useNavigate();
+  const hero = useScrollReveal(0.1);
+  const formBlock = useScrollReveal(0.06);
+  const listBlock = useScrollReveal(0.06);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -40,7 +44,7 @@ function Testimonials() {
   } | null>(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/testimonials/")
+    fetch("https://w5v0z3d3-8000.uks1.devtunnels.ms/api/testimonials/")
       .then((res) => {
         if (!res.ok) throw new Error("Network error");
         return res.json();
@@ -68,7 +72,7 @@ function Testimonials() {
     setResponse(null);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/testimonials/", {
+      const res = await fetch("https://w5v0z3d3-8000.uks1.devtunnels.ms/api/testimonials/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -114,17 +118,17 @@ function Testimonials() {
       </Helmet>
 
       <main className="testimonials-page">
-        <section className="hero-section">
-          <h1 className="page-title">Stories from Our Community</h1>
-          <p className="page-subtitle">
+        <section className="hero-section" ref={hero.ref}>
+          <h1 className={`page-title ${hero.visible ? "reveal-in-view" : ""}`}>Stories from Our Community</h1>
+          <p className={`page-subtitle ${hero.visible ? "reveal-in-view" : ""}`}>
             Real experiences, real impact. Read what participants and families
             say about RecLife.
           </p>
         </section>
 
         {/* Form Section */}
-        <section className="testimonial-form-section">
-          <div className="form-container">
+        <section className="testimonial-form-section" ref={formBlock.ref}>
+          <div className={`form-container ${formBlock.visible ? "reveal-in-view" : ""}`}>
             <h2>Share Your Story</h2>
             <p className="form-intro">
               Your words help others see the difference RecLife makes. Thank you
@@ -204,8 +208,8 @@ function Testimonials() {
         </section>
 
         {/* Testimonials Grid */}
-        <section className="testimonial-list-section">
-          <h2>What Our Community Says</h2>
+        <section className="testimonial-list-section" ref={listBlock.ref}>
+          <h2 className={listBlock.visible ? "reveal-in-view" : ""}>What Our Community Says</h2>
 
           {loading ? (
             <div className="loading-wrapper" role="status" aria-live="polite">
