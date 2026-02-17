@@ -21,10 +21,7 @@ function Services() {
   const sectionsRef = useScrollReveal(0.06);
 
   useEffect(() => {
-    fetch(
-      //"http://127.0.0.1:8000/api/services/",
-      "https://w5v0z3d3-8000.uks1.devtunnels.ms/api/services/",
-    ) // switch to "https://reclife-backend.onrender.com/api/services/" in production
+    fetch("http://127.0.0.1:8000/api/services/") // switch to "https://reclife-backend.onrender.com/api/services/" in production
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
@@ -81,13 +78,18 @@ function Services() {
         {/* HERO */}
         <header className="services-hero" ref={hero.ref}>
           <h2 className={hero.visible ? "reveal-in-view" : ""}>Our Services</h2>
-          <p className={`services-intro ${hero.visible ? "reveal-in-view" : ""}`}>
+          <p
+            className={`services-intro ${hero.visible ? "reveal-in-view" : ""}`}
+          >
             You come first! We provide the following:
           </p>
         </header>
 
         {/* SECTIONS */}
-        <div className={`services-sections ${sectionsRef.visible ? "reveal-in-view" : ""}`} ref={sectionsRef.ref}>
+        <div
+          className={`services-sections ${sectionsRef.visible ? "reveal-in-view" : ""}`}
+          ref={sectionsRef.ref}
+        >
           {sections.map((section, index) => (
             <section className="service-section" key={section.title}>
               <div className={`service-inner ${index % 2 ? "reverse" : ""}`}>
@@ -95,11 +97,20 @@ function Services() {
                   {"images" in section && section.images?.length ? (
                     <div className="service-image-grid">
                       {section.images.map((img, i) => (
-                        <img key={i} src={img} alt={`${section.title} ${i + 1}`} loading="lazy" />
+                        <img
+                          key={i}
+                          src={img}
+                          alt={`${section.title} ${i + 1}`}
+                          loading="lazy"
+                        />
                       ))}
                     </div>
                   ) : (
-                    <img src={section.image} alt={section.title} loading="lazy" />
+                    <img
+                      src={section.image}
+                      alt={section.title}
+                      loading="lazy"
+                    />
                   )}
                 </div>
                 <div className="service-content">

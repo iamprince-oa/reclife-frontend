@@ -148,7 +148,7 @@ function Home() {
   const ready = useScrollReveal();
 
   useEffect(() => {
-    fetch("https://w5v0z3d3-8000.uks1.devtunnels.ms/api/")
+    fetch("http://127.0.0.1:8000/api/")
       .then((res) => res.json())
       .then(setData)
       .catch(console.error);
@@ -179,8 +179,8 @@ function Home() {
         <div className="hero-inner">
           <HeroTypewriter />
           <p className="hero-tagline">
-            More than programs—we create belonging, growth and everyday life skills
-            through inclusive recreation.
+            More than programs—we create belonging, growth and everyday life
+            skills through inclusive recreation.
           </p>
           <p className="hero-brand">RECLIFE</p>
           <div className="hero-buttons">
@@ -193,6 +193,16 @@ function Home() {
           </div>
         </div>
       </header>
+
+      <section className="trust-bar">
+        <div className="trust-inner">
+          <p>Inclusive programs</p>
+          <span className="dot" />
+          <p>Skill-building activities</p>
+          <span className="dot" />
+          <p>Supportive community</p>
+        </div>
+      </section>
 
       <main>
         {/* MEET THE MISSION — personal intro block */}
@@ -216,12 +226,19 @@ function Home() {
         {/* SERVICES PREVIEW — card grid with GET STARTED */}
         <section className="section section-services">
           <div ref={impactIntro.ref as React.RefObject<HTMLDivElement>}>
-            <h2 className={`section-heading ${impactIntro.visible ? "reveal-in-view" : ""}`}>Here&apos;s how we can support you</h2>
+            <h2
+              className={`section-heading ${impactIntro.visible ? "reveal-in-view" : ""}`}
+            >
+              Here&apos;s how we can support you
+            </h2>
           </div>
           <p className="section-intro">
             A quick introduction to our programs and how we can assist you.
           </p>
-          <div className={`service-cards ${impactCollage.visible ? "reveal-in-view" : ""}`} ref={impactCollage.ref as React.RefObject<HTMLDivElement>}>
+          <div
+            className={`service-cards ${impactCollage.visible ? "reveal-in-view" : ""}`}
+            ref={impactCollage.ref as React.RefObject<HTMLDivElement>}
+          >
             {PROGRAMS.map((program) => (
               <article key={program.title} className="service-card">
                 <div className="service-card-image hover-zoom">
@@ -241,7 +258,9 @@ function Home() {
 
         {/* REAL GROWTH — collage + CTA */}
         <section className="section section-impact">
-          <h2 className="section-heading">Real growth happens through experience</h2>
+          <h2 className="section-heading">
+            Real growth happens through experience
+          </h2>
           <p className="section-intro">
             Every activity is designed to encourage participation, independence
             and connection.
@@ -269,10 +288,14 @@ function Home() {
 
         {/* SO, READY TO START? — bridge to contact */}
         <section className="section section-ready" ref={ready.ref}>
-          <h2 className={`section-heading ${ready.visible ? "reveal-in-view" : ""}`}>So, ready to start?</h2>
+          <h2
+            className={`section-heading ${ready.visible ? "reveal-in-view" : ""}`}
+          >
+            So, ready to start?
+          </h2>
           <p className="section-intro">
-            Reach out and we&apos;ll help find the right fit for you or someone you
-            care about.
+            Reach out and we&apos;ll help find the right fit for you or someone
+            you care about.
           </p>
           <a href="#contact" className="btn btn-primary btn-large">
             Let&apos;s Connect

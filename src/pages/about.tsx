@@ -20,8 +20,8 @@ function About() {
 
   useEffect(() => {
     fetch(
-      //"http://127.0.0.1:8000/api/about/",
-      "https://w5v0z3d3-8000.uks1.devtunnels.ms/api/about/", // switch to "https://reclife-backend.onrender.com/api/about/" in production
+      "http://127.0.0.1:8000/api/about/",
+      // switch to "https://reclife-backend.onrender.com/api/about/" in production
     ) // switch to "https://reclife-backend.onrender.com/api/about/" in production
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
@@ -60,8 +60,12 @@ function About() {
 
       <main className="about-page">
         <section className="about-hero" ref={hero.ref}>
-          <div className={`about-hero-inner ${hero.visible ? "reveal-in-view" : ""}`}>
-            <h1 className="about-hero-title">Empowering Lives Through Tailored Support</h1>
+          <div
+            className={`about-hero-inner ${hero.visible ? "reveal-in-view" : ""}`}
+          >
+            <h1 className="about-hero-title">
+              Empowering Lives Through Tailored Support
+            </h1>
             <p className="about-hero-sub">
               Join us for affordable, reliable, and consistent support that
               exceeds expectations. We aim to build lasting relationships and
@@ -70,16 +74,20 @@ function About() {
             <p className="about-hero-sub">
               Our skilled team provides high-quality services designed for
               individuals with unique talents and abilities. Whether in-home,
-              community-based, or group-oriented, our programs are crafted to meet
-              your needs while fostering social connections.
+              community-based, or group-oriented, our programs are crafted to
+              meet your needs while fostering social connections.
             </p>
           </div>
         </section>
 
         <section className="about-mission" ref={mission.ref}>
-          <div className={`about-mission-inner ${mission.visible ? "reveal-in-view" : ""}`}>
+          <div
+            className={`about-mission-inner ${mission.visible ? "reveal-in-view" : ""}`}
+          >
             <h2 className="section-label">Our Mission</h2>
-            <h3 className="section-heading">Everyone deserves the opportunity to thrive</h3>
+            <h3 className="section-heading">
+              Everyone deserves the opportunity to thrive
+            </h3>
             <p>
               At RecLife, we deliver tailored, inclusive support that empowers
               individuals with developmental needs to build skills, form
@@ -87,25 +95,33 @@ function About() {
             </p>
             <p>
               From safe cooking classes and social circles to skill-building
-              lounges, every program is designed with care, flexibility, and real
-              impact in mind.
+              lounges, every program is designed with care, flexibility, and
+              real impact in mind.
             </p>
           </div>
         </section>
 
         <section className="about-highlights" ref={highlights.ref}>
-          <h2 className="section-heading about-highlights-title">Why families choose us</h2>
-          <div className={`highlights-grid ${highlights.visible ? "reveal-in-view" : ""}`}>
+          <h2 className="section-heading about-highlights-title">
+            Why families choose us
+          </h2>
+          <div
+            className={`highlights-grid ${highlights.visible ? "reveal-in-view" : ""}`}
+          >
             <div className="highlight-card">
-              <div className="highlight-icon" aria-hidden>🏆</div>
+              <div className="highlight-icon" aria-hidden>
+                🏆
+              </div>
               <h3>Award-Winning Programs</h3>
               <p>
-                Recognized for excellence in creating meaningful, person-centered
-                experiences.
+                Recognized for excellence in creating meaningful,
+                person-centered experiences.
               </p>
             </div>
             <div className="highlight-card">
-              <div className="highlight-icon" aria-hidden>🤝</div>
+              <div className="highlight-icon" aria-hidden>
+                🤝
+              </div>
               <h3>Compassionate and Professional Team</h3>
               <p>
                 Dedicated experts who bring care, skill, and understanding to
@@ -113,7 +129,9 @@ function About() {
               </p>
             </div>
             <div className="highlight-card">
-              <div className="highlight-icon" aria-hidden>🌿</div>
+              <div className="highlight-icon" aria-hidden>
+                🌿
+              </div>
               <h3>Holistic Approach to Well-Being</h3>
               <p>
                 Supporting physical, social, emotional, and personal growth in
@@ -121,7 +139,9 @@ function About() {
               </p>
             </div>
             <div className="highlight-card">
-              <div className="highlight-icon" aria-hidden>❤️</div>
+              <div className="highlight-icon" aria-hidden>
+                ❤️
+              </div>
               <h3>Recognized by Families</h3>
               <p>
                 Trusted partner chosen time and again for consistent, heartfelt

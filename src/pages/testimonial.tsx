@@ -44,7 +44,7 @@ function Testimonials() {
   } | null>(null);
 
   useEffect(() => {
-    fetch("https://w5v0z3d3-8000.uks1.devtunnels.ms/api/testimonials/")
+    fetch("127.0.0.1:8000/api/testimonials/")
       .then((res) => {
         if (!res.ok) throw new Error("Network error");
         return res.json();
@@ -72,7 +72,7 @@ function Testimonials() {
     setResponse(null);
 
     try {
-      const res = await fetch("https://w5v0z3d3-8000.uks1.devtunnels.ms/api/testimonials/", {
+      const res = await fetch("127.0.0.1:8000/api/testimonials/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -119,8 +119,12 @@ function Testimonials() {
 
       <main className="testimonials-page">
         <section className="hero-section" ref={hero.ref}>
-          <h1 className={`page-title ${hero.visible ? "reveal-in-view" : ""}`}>Stories from Our Community</h1>
-          <p className={`page-subtitle ${hero.visible ? "reveal-in-view" : ""}`}>
+          <h1 className={`page-title ${hero.visible ? "reveal-in-view" : ""}`}>
+            Stories from Our Community
+          </h1>
+          <p
+            className={`page-subtitle ${hero.visible ? "reveal-in-view" : ""}`}
+          >
             Real experiences, real impact. Read what participants and families
             say about RecLife.
           </p>
@@ -128,7 +132,9 @@ function Testimonials() {
 
         {/* Form Section */}
         <section className="testimonial-form-section" ref={formBlock.ref}>
-          <div className={`form-container ${formBlock.visible ? "reveal-in-view" : ""}`}>
+          <div
+            className={`form-container ${formBlock.visible ? "reveal-in-view" : ""}`}
+          >
             <h2>Share Your Story</h2>
             <p className="form-intro">
               Your words help others see the difference RecLife makes. Thank you
@@ -209,7 +215,9 @@ function Testimonials() {
 
         {/* Testimonials Grid */}
         <section className="testimonial-list-section" ref={listBlock.ref}>
-          <h2 className={listBlock.visible ? "reveal-in-view" : ""}>What Our Community Says</h2>
+          <h2 className={listBlock.visible ? "reveal-in-view" : ""}>
+            What Our Community Says
+          </h2>
 
           {loading ? (
             <div className="loading-wrapper" role="status" aria-live="polite">

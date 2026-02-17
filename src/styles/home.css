@@ -1,12 +1,19 @@
-/* ========== Home — uses theme from variables.css ========== */
+/* ==========================================================================
+   HOME PAGE STYLES
+   Uses theme variables from variables.css
+   ========================================================================== */
 
+/* ==========================================================================
+   ROOT / GLOBAL
+   ========================================================================== */
 main {
   overflow-x: hidden;
   background: var(--color-bg);
 }
 
-/* ========== Typography ========== */
-
+/* ==========================================================================
+   TYPOGRAPHY — Sections
+   ========================================================================== */
 .section-label {
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -41,11 +48,13 @@ main {
   margin-top: 2rem;
 }
 
-/* ========== Buttons ========== */
-/* Smooth hover: no bounce, gentle ease-out, relaxed pace */
+/* ==========================================================================
+   BUTTONS — Shared + Variants
+   ========================================================================== */
 .btn {
-  --btn-ease: cubic-bezier(0.4, 0, 0.2, 1); /* no overshoot */
+  --btn-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --btn-duration: 0.55s;
+
   display: inline-block;
   font-family: var(--font-body);
   font-weight: 600;
@@ -53,18 +62,20 @@ main {
   padding: 0.9rem 1.75rem;
   border-radius: 999px;
   text-decoration: none;
+
   transition:
     transform var(--btn-duration) var(--btn-ease),
     box-shadow var(--btn-duration) var(--btn-ease),
-    background-color var(--btn-duration) var(--btn-ease),
+    background var(--btn-duration) var(--btn-ease),
     border-color var(--btn-duration) var(--btn-ease),
     color var(--btn-duration) var(--btn-ease);
 }
 
 .btn-primary {
   background: var(--color-accent);
-  color: #fff;
+  color: white;
 }
+
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(37, 99, 235, 0.32);
@@ -73,15 +84,15 @@ main {
 
 .btn-ghost {
   border: 2px solid rgba(255, 255, 255, 0.9);
-  color: #fff;
+  color: white;
   background: transparent;
 }
+
 .btn-ghost:hover {
   transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.12);
-  border-color: #fff;
+  border-color: white;
 }
-/* Hero overrides above use --hero-text */
 
 .btn-large {
   padding: 1rem 2.2rem;
@@ -95,25 +106,29 @@ main {
   color: var(--color-accent);
   text-decoration: none;
   margin-top: 0.75rem;
+
   transition:
     color var(--btn-duration) var(--btn-ease),
     transform var(--btn-duration) var(--btn-ease);
 }
+
 .btn-get-started:hover {
   color: var(--color-accent-hover);
   transform: translateX(4px);
 }
 
-/* Get Started: always visible in dark mode (cards are dark) */
+/* Dark mode adjustment for Get Started button (used in dark cards) */
 body.dark-mode .btn-get-started {
   color: #93c5fd;
 }
+
 body.dark-mode .btn-get-started:hover {
   color: #bfdbfe;
 }
 
-/* ========== HERO ========== */
-
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -122,7 +137,8 @@ body.dark-mode .btn-get-started:hover {
   justify-content: center;
   overflow: hidden;
   text-align: center;
-  /* Explicit hero text palette (always on dark overlay) */
+
+  /* Hero-specific text palette (dark overlay) */
   --hero-text: #ffffff;
   --hero-text-soft: rgba(255, 255, 255, 0.95);
   --hero-text-muted: rgba(255, 255, 255, 0.88);
@@ -132,9 +148,6 @@ body.dark-mode .btn-get-started:hover {
 .hero-bg-wrap {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  /* No transform/parallax = no scroll jank or shaking */
   contain: strict;
 }
 
@@ -144,9 +157,8 @@ body.dark-mode .btn-get-started:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: center;
   filter: brightness(0.5);
-  /* Prevent subpixel shifting */
   backface-visibility: hidden;
   transform: translateZ(0);
 }
@@ -220,23 +232,123 @@ body.dark-mode .btn-get-started:hover {
   align-items: center;
 }
 
-.hero .btn-primary {
+/* Hero button overrides */
+.hero .btn-primary,
+.hero .btn-ghost {
   color: var(--hero-text);
 }
 
 .hero .btn-ghost {
-  color: var(--hero-text);
   border-color: var(--hero-text-muted);
 }
 
 .hero .btn-ghost:hover {
-  color: var(--hero-text);
   border-color: var(--hero-text);
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* ========== Section spacing ========== */
+/* ---- Trust Bar (new section) ---- */
+.trust-bar {
+  background: var(
+    --color-bg-section
+  ); /* or try a very light tint of accent if you want it to stand out slightly */
+  /* background: linear-gradient(to right, rgba(var(--color-accent-rgb), 0.04), transparent); */ /* optional subtle accent hint */
+  border-top: 1px solid rgba(0, 0, 0, 0.06); /* light separator from hero */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 1.25rem 0; /* slim height */
+  font-family: var(--font-body);
+}
 
+.trust-bar {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-accent-rgb), 0.07) 0%,
+    transparent 100%
+  );
+}
+
+.trust-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem; /* generous spacing between items */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  color: var(--color-text-soft);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  text-align: center;
+}
+
+/* Individual trust items — treat <p> as inline-flex for better control */
+.trust-inner p {
+  margin: 0;
+  white-space: nowrap; /* prevent awkward wrapping mid-phrase */
+  transition: color 0.3s ease;
+}
+
+.trust-inner p:hover {
+  color: var(--color-text); /* subtle lift on hover */
+}
+
+/* Dot separator — more elegant than basic • */
+.dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-text-soft);
+  border-radius: 50%;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Dark mode adjustments
+   ────────────────────────────────────────────────────────────────────────── */
+body.dark-mode .trust-bar {
+  background: rgba(255, 255, 255, 0.03);
+  border-top-color: rgba(255, 255, 255, 0.08);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .trust-inner {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+body.dark-mode .dot {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+body.dark-mode .trust-inner p:hover {
+  color: white;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Responsive — collapse gracefully on narrow screens
+   ────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .trust-inner {
+    gap: 1.25rem 2rem;
+    flex-direction: column; /* stack vertically on mobile */
+    padding: 1rem;
+  }
+
+  .dot {
+    display: none; /* dots not needed when stacked */
+  }
+
+  .trust-inner p:not(:last-child)::after {
+    content: "•"; /* fallback bullet when stacked */
+    margin-left: 0.75rem;
+    opacity: 0.4;
+  }
+}
+
+/* ==========================================================================
+   SECTION LAYOUT & VARIANTS
+   ========================================================================== */
 .section {
   padding: var(--space-section) clamp(1.5rem, 6vw, 4rem);
 }
@@ -257,23 +369,30 @@ body.dark-mode .btn-get-started:hover {
   background: var(--color-bg);
   text-align: center;
 }
+
 .section-ready .section-intro {
   margin-left: auto;
   margin-right: auto;
 }
 
-/* ========== Meet the mission ========== */
-
+/* ==========================================================================
+   MEET THE MISSION (Story section)
+   ========================================================================== */
 .meet-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr 1.1fr;
   gap: clamp(2.5rem, 5vw, 4rem);
   align-items: center;
+  justify-items: start;
   max-width: 1100px;
   margin: 0 auto;
 }
 
 .meet-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
   max-width: 540px;
 }
 
@@ -297,23 +416,38 @@ body.dark-mode .btn-get-started:hover {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
+  display: flex; /* helps image behave better */
+  align-items: center;
+  justify-content: center;
 }
+
 .meet-image img {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+}
+
+@media (min-width: 901px) {
+  .meet-content {
+    padding-top: clamp(1rem, 3vw, 2.5rem);
+  }
 }
 
 .hover-reveal {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
 }
+
 .hover-reveal:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
 }
 
-/* ========== Service cards ========== */
-
+/* ==========================================================================
+   SERVICE CARDS
+   ========================================================================== */
 .service-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -327,25 +461,30 @@ body.dark-mode .btn-get-started:hover {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
   display: flex;
   flex-direction: column;
 }
+
 .service-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-hover);
 }
 
 .service-card-image {
-  aspect-ratio: 4/3;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
 }
+
 .service-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
+
 .hover-zoom:hover img {
   transform: scale(1.06);
 }
@@ -374,8 +513,9 @@ body.dark-mode .btn-get-started:hover {
   flex: 1;
 }
 
-/* ========== Impact collage ========== */
-
+/* ==========================================================================
+   IMPACT COLLAGE
+   ========================================================================== */
 .impact-collage {
   position: relative;
   height: 580px;
@@ -389,6 +529,7 @@ body.dark-mode .btn-get-started:hover {
   overflow: hidden;
   box-shadow: var(--shadow);
 }
+
 .impact-collage .impact-img img {
   width: 100%;
   height: 100%;
@@ -421,8 +562,9 @@ body.dark-mode .btn-get-started:hover {
   bottom: 8%;
 }
 
-/* ========== Loading ========== */
-
+/* ==========================================================================
+   LOADING STATE
+   ========================================================================== */
 .loading {
   min-height: 100vh;
   display: flex;
@@ -432,10 +574,12 @@ body.dark-mode .btn-get-started:hover {
   gap: 1rem;
   font-family: var(--font-body);
 }
+
 .loading p {
   margin: 0;
   color: var(--color-text-soft);
 }
+
 .spinner {
   width: 40px;
   height: 40px;
@@ -444,13 +588,16 @@ body.dark-mode .btn-get-started:hover {
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* ========== Responsive ========== */
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
 
 @media (max-width: 1024px) {
   .impact-collage {
@@ -463,9 +610,12 @@ body.dark-mode .btn-get-started:hover {
     grid-template-columns: 1fr;
     text-align: center;
   }
+
   .meet-content {
     max-width: 100%;
+    padding-top: 1.5rem;
   }
+
   .meet-image {
     max-width: 520px;
     margin: 0 auto;
@@ -484,15 +634,14 @@ body.dark-mode .btn-get-started:hover {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
+
   .impact-collage .impact-img {
     position: relative;
     width: 100%;
     height: 200px;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: auto !important;
+    inset: auto !important;
   }
+
   .impact-collage .main {
     grid-column: 1 / -1;
     height: 260px;
@@ -507,18 +656,22 @@ body.dark-mode .btn-get-started:hover {
   .hero-headline {
     font-size: 2rem;
   }
+
   .hero-brand {
     letter-spacing: 0.2em;
   }
+
   .hero-buttons {
     flex-direction: column;
     width: 100%;
   }
+
   .btn {
     width: 100%;
     max-width: 280px;
     text-align: center;
   }
+
   .btn-ghost {
     margin-left: 0;
   }
@@ -526,6 +679,7 @@ body.dark-mode .btn-get-started:hover {
   .impact-collage .impact-img {
     height: 180px;
   }
+
   .impact-collage .main {
     height: 220px;
   }
